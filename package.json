@@ -17,6 +17,8 @@
     "easybotics-rpi-rgb-led-matrix": "^0.4.1",
     "express": "^4.17.1",
     "vue": "^2.5.2",
+    "vue-color": "^2.7.1",
+    "vue-js-modal": "^2.0.0-rc.6",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
