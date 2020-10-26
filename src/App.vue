@@ -1,26 +1,33 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-link to="/page1">page1</router-link>
-    <router-link to="/page2">page2</router-link>
-    <router-view/>
+  <div id="app" class="has-background-white">
+    <div class="container">
+      <Header/>
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
+import Header from './components/Header'
+
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    Header
+  }
 }
 </script>
 
 <style>
 @import "./mystyles.css";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
