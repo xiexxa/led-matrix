@@ -6,7 +6,7 @@
           <Unit description="テキストを表示します。"/>
           <div class="tile is-child notification is-info is-light">
             <p class="is-5">表示する文字を入力</p>
-            <input type="text" class="input">
+            <input type="text" class="input" name="textbox">
             <p class="is-7">history</p>
             <span class="tag">Hello</span>
             <span class="tag">Hello</span>
@@ -18,7 +18,7 @@
                   <p class="button is-small is-7">reset</p>
                 </div>
                 <div class="level-item">
-                  <p class="button is-small is-warning">Send</p>
+                  <p class="button is-small is-warning" v-on:click="sendDisplayRequest">Send</p>
                 </div>
               </div>
             </nav>
@@ -35,6 +35,11 @@ export default {
   name: 'Text',
   components: {
     Unit
+  },
+  methods: {
+    sendDisplayRequest: function () {
+      alert('press')
+    }
   }
 }
 </script>
