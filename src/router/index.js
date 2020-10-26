@@ -8,9 +8,12 @@ import Image from '../components/Image.vue'
 import Video from '../components/Video.vue'
 import NotFound from '../components/NotFound.vue'
 import VModal from 'vue-js-modal'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 Vue.use(Router)
 Vue.use(VModal)
+Vue.use(VueAxios, axios)
 
 export default new Router({
   routes: [

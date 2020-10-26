@@ -38,7 +38,9 @@ export default {
   },
   methods: {
     sendDisplayRequest: function () {
-      alert('press')
+      this.axios.get('/api')
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
     }
   }
 }
