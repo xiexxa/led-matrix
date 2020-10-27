@@ -8,7 +8,8 @@ async function main() {
             message: "api"
         });
         */
-       res.send('This is api server');
+       console.log(req);
+       res.send(req.body.text);
     }
 }
 main();

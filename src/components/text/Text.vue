@@ -38,7 +38,10 @@ export default {
   },
   methods: {
     sendDisplayRequest: function () {
-      this.axios.get('/api')
+      let textbox = this.textbox
+      this.axios.post('/api', {
+        text: textbox
+      })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))
     },
