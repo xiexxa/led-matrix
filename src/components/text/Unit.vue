@@ -35,6 +35,7 @@
                 <label for="loop" class="label">Loop</label>
                 <label for="color" class="label">Color</label>
                 <chrome-picker v-model="colors" :disableAlpha="true"></chrome-picker>
+                <input type="button" class="button is-primary is-small" v-on:click="sendDisplayChangeColor">
               </div>
             </div>
           </modal>
@@ -79,9 +80,24 @@ export default {
   methods: {
     settingsShow: function () {
       this.$modal.show('settings-panel')
+      console.log(this.colors.rgba.r)
+      console.log(this.colors.rgba.g)
+      console.log(this.colors.rgba.b)
     },
     settingsClose: function () {
       this.$modal.hide('settings-panel')
+    },
+
+    sendDisplayChangeColor: function () {
+      this.axios.post('/api/colors', {
+        colors: {
+          r: this.colors.rgba.r,
+          g: this.colors.rgba.g,
+          b: this.colors.rgba.b
+        }
+      })
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
     }
   }
 }
