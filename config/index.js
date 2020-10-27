@@ -13,8 +13,8 @@ module.exports = {
     proxyTable: {},
 
     // Various Dev Server settings
-    //host: '172.19.210.25', // can be overwritten by process.env.HOST
-    host: '192.168.0.13', // can be overwritten by process.env.HOST
+    host: '172.19.210.25', // can be overwritten by process.env.HOST
+    //host: '192.168.0.13', // can be overwritten by process.env.HOST
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
     errorOverlay: true,
@@ -41,7 +41,14 @@ module.exports = {
     // https://vue-loader.vuejs.org/en/options.html#cachebusting
     cacheBusting: true,
 
-    cssSourceMap: true
+    cssSourceMap: true,
+
+    proxyTable: {
+      '/api': {
+        target: 'http://172.19.210.25:3000/',
+        changeOrigin: true
+      }
+    }
   },
 
   build: {
@@ -73,5 +80,5 @@ module.exports = {
     // `npm run build --report`
     // Set to `true` or `false` to always turn it on or off
     bundleAnalyzerReport: process.env.npm_config_report
-  }
+  },
 }
