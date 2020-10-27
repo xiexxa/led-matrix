@@ -19,15 +19,18 @@ async function main() {
         });
         */
        let text = req.body.text;
-       let x = 0;
+       let x = 96;
+       let tail = text.length * 16 + text.length;
+       console.log(tail);
 
        res.send(text);
-       while (x <= 96) {
+       while (x+tail >= 0) {
         matrix.clear();
         matrix.drawText(x, 0, text, fontpath, 0, 255, 0);
         matrix.update();
-        x++;
-        await sleep(100);
+        x--;
+        console.log(x);
+        await sleep(10);
        }
        console.log('done: '+text);
     }
