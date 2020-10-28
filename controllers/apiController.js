@@ -1,6 +1,7 @@
 const path = require('path');
 const async = require('async');
 const LedMatrix = require("easybotics-rpi-rgb-led-matrix");
+const client = require('cheerio-httpcli');
 let matrix;
 let fontpath;
 
@@ -14,13 +15,24 @@ async function main() {
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
 
+    let rss = 'https://news.yahoo.co.jp/pickup/computer/rss.xml';
+    let answer;
+    client.fetch(rss, {}, function(err, $, res) {
+        if(err) { console.log('error'); return; }
+        $('item > title').each(function(idx) {
+            answer = $(this).text();
+            console.log(answer);
+        }) 
+    })
+
     exports.index = async function(req, res) {
         /*
         res.json({
             message: "api"
         });
         */
-       let text = req.body.text;
+       //let text = req.body.text;
+       let text = answer;
        let x = 96;
        let tail = text.length * 16 + text.length;
        console.log(tail);
