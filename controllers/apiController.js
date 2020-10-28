@@ -12,6 +12,7 @@ async function main() {
     matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
     let colors = { r:255, g:255, b:255 };
+    let speed = 50;
 
     exports.index = async function(req, res) {
         /*
@@ -23,6 +24,7 @@ async function main() {
        let x = 96;
        let tail = text.length * 16 + text.length;
        console.log(tail);
+       console.log('speed: '+speed);
 
        res.send(text);
        while (x+tail >= 0) {
@@ -31,12 +33,13 @@ async function main() {
         matrix.update();
         x--;
         console.log(x);
-        await sleep(50);
+        await sleep(speed);
        }
        console.log('done: '+text);
     }
 
     exports.colors = function(req, res) {
+        speed = parseInt(req.body.speed,10);
         console.log(req.body.colors);
         colors = req.body.colors;
     }

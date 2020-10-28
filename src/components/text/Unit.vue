@@ -25,7 +25,7 @@
               <div class="section">
                 <h3 class="title">Text Settings</h3>
                 <label for="speed" class="label">Speed</label>
-                <input type="range" name='speed' min='1' max='100'>
+                <input type="range" name='speed' min='1' max='100' v-model="speed">
                 <label for="font" class="label">Font</label>
                 <div class="select">
                   <select name="font" id="">
@@ -35,7 +35,7 @@
                 <label for="loop" class="label">Loop</label>
                 <label for="color" class="label">Color</label>
                 <chrome-picker v-model="colors" :disableAlpha="true"></chrome-picker>
-                <input type="button" class="button is-primary is-small" v-on:click="sendDisplayChangeColor">
+                <input type="button" class="button is-primary is-small" v-on:click="sendDisplayChangeColor" value="送信">
               </div>
             </div>
           </modal>
@@ -89,12 +89,16 @@ export default {
     },
 
     sendDisplayChangeColor: function () {
+      if (this.speed === undefined) {
+        this.speed = 50
+      }
       this.axios.post('/api/colors', {
         colors: {
           r: this.colors.rgba.r,
           g: this.colors.rgba.g,
           b: this.colors.rgba.b
-        }
+        },
+        speed: this.speed
       })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))
