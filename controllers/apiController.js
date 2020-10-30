@@ -2,6 +2,7 @@ const path = require('path');
 const async = require('async');
 const LedMatrix = require("easybotics-rpi-rgb-led-matrix");
 const client = require('cheerio-httpcli');
+const mysql = require('mysql');
 let matrix;
 let fontpath;
 
@@ -15,6 +16,7 @@ async function main() {
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
 
+    
     let rss = 'https://news.yahoo.co.jp/pickup/computer/rss.xml';
     let answer;
     client.fetch(rss, {}, function(err, $, res) {
@@ -23,7 +25,17 @@ async function main() {
             answer = $(this).text();
             console.log(answer);
         }) 
-    })
+    });
+    
+
+    /*
+    const con = mysql.createConnection({
+        host: 'localhost',
+        user: 'eisuke',
+        password: 'password',
+        database: 'testdb'
+    });
+    */
 
     exports.index = async function(req, res) {
         /*
@@ -32,9 +44,23 @@ async function main() {
         });
         */
        let text = req.body.text;
-       //let text = answer;
        let x = 96;
        let tail = text.length * 16 + text.length;
+
+       // DBにテキストを履歴として記録
+       /*
+       con.connect(function(err) {
+           if (err) throw err;
+           console.log('DB connected');
+
+           let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
+           con.query($sql, [text, '2020-10-31', '2020-10-31'], function (error, results, fields) {
+               if (err) throw err;
+               console.log(result);
+           });
+       });
+       */
+
        console.log(tail);
        console.log('speed: '+speed);
 
