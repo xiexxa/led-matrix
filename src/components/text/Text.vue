@@ -9,7 +9,7 @@
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
             <div class="tags are-midium">
-              <span class="tag" v-for="his in this.histories" v-bind:key = his.id>{{his.body}}</span>
+              <div class="tag" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose" ref="hist">{{his.body}}</div>
             </div>
             <nav class="level">
               <div class="level-left"></div>
@@ -54,6 +54,9 @@ export default {
     },
     textBoxReset: function () {
       this.textbox = ''
+    },
+    historyChoose: function () {
+      console.log(this.$refs.hist)
     }
   },
   created () {
