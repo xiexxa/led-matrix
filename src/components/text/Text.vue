@@ -37,6 +37,9 @@ export default {
     Unit
   },
   methods: {
+    window: onload = function () {
+      console.log('history post request error')
+    },
     sendDisplayRequest: function () {
       let textbox = this.textbox
       this.axios.post('/api', {

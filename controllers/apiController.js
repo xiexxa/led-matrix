@@ -79,5 +79,9 @@ async function main() {
         console.log(req.body.colors);
         colors = req.body.colors;
     }
+
+    exports.history = function(req, res) {
+        res.send('asds');
+    }
 }
 main();
