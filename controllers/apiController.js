@@ -3,6 +3,7 @@ const async = require('async');
 const LedMatrix = require("easybotics-rpi-rgb-led-matrix");
 const client = require('cheerio-httpcli');
 const mysql = require('mysql');
+const date = require('date-utils');
 let matrix;
 let fontpath;
 
@@ -15,6 +16,7 @@ async function main() {
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
+    const dt = new Date();
 
     
     let rss = 'https://news.yahoo.co.jp/pickup/computer/rss.xml';
@@ -27,15 +29,12 @@ async function main() {
         }) 
     });
     
-
-    /*
     const con = mysql.createConnection({
         host: 'localhost',
         user: 'eisuke',
         password: 'password',
         database: 'testdb'
     });
-    */
 
     exports.index = async function(req, res) {
         /*
@@ -48,18 +47,17 @@ async function main() {
        let tail = text.length * 16 + text.length;
 
        // DBにテキストを履歴として記録
-       /*
        con.connect(function(err) {
            if (err) throw err;
            console.log('DB connected');
 
            let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
-           con.query($sql, [text, '2020-10-31', '2020-10-31'], function (error, results, fields) {
+           let dtformat = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+           con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
                if (err) throw err;
-               console.log(result);
+               console.log(results);
            });
        });
-       */
 
        console.log(tail);
        console.log('speed: '+speed);
