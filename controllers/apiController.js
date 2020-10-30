@@ -31,8 +31,8 @@ async function main() {
             message: "api"
         });
         */
-       //let text = req.body.text;
-       let text = answer;
+       let text = req.body.text;
+       //let text = answer;
        let x = 96;
        let tail = text.length * 16 + text.length;
        console.log(tail);
