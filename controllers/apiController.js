@@ -37,27 +37,16 @@ async function main() {
     });
 
     exports.index = async function(req, res) {
-        /*
-        res.json({
-            message: "api"
-        });
-        */
        let text = req.body.text;
        let x = 96;
        let tail = text.length * 16 + text.length;
 
        // DBにテキストを履歴として記録
-       con.connect(function(err) {
-           if (err) throw err;
-           console.log('DB connected');
-
-           let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
-           let dtformat = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
-           con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
-               if (err) throw err;
-               console.log(results);
-           });
-       });
+        let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
+        let dtformat = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+        con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
+            console.log(results);
+        });
 
        console.log(tail);
        console.log('speed: '+speed);
@@ -81,7 +70,12 @@ async function main() {
     }
 
     exports.history = function(req, res) {
-        res.send('asds');
+        let sql = "select id, body from text_histories order by id desc";
+        con.query(sql, function (error, results, fields) {
+            res.json({
+                histories: results
+            });
+        });
     }
 }
 main();

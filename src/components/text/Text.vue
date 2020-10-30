@@ -8,9 +8,9 @@
             <p class="is-5">表示する文字を入力</p>
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
-            <span class="tag">Hello</span>
-            <span class="tag">Hello</span>
-            <span class="tag">Hello</span>
+            <div class="tags are-midium">
+              <span class="tag" v-for="his in this.histories" v-bind:key = his.id>{{his.body}}</span>
+            </div>
             <nav class="level">
               <div class="level-left"></div>
               <div class="level-right">
@@ -31,15 +31,19 @@
 
 <script>
 import Unit from './Unit'
+let histories
 export default {
   name: 'Text',
   components: {
     Unit
   },
+  data: () => ({
+    histories: histories,
+    numbers: [
+      1, 2, 3, 4, 5, 6, 7, 8
+    ]
+  }),
   methods: {
-    window: onload = function () {
-      console.log('history post request error')
-    },
     sendDisplayRequest: function () {
       let textbox = this.textbox
       this.axios.post('/api', {
@@ -51,6 +55,15 @@ export default {
     textBoxReset: function () {
       this.textbox = ''
     }
+  },
+  created () {
+    console.log('history post request error')
+    this.axios.get('/api/history')
+      .then((res) => {
+        histories = res.data
+        histories = histories.histories
+        console.log(histories)
+      })
   }
 }
 </script>
