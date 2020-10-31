@@ -20,7 +20,7 @@
       <div class="level-right">
         <div class="level-item">
           <input type="button" class="button is-small" v-on:click="settingsShow" value="Settings">
-          <modal name="settings-panel" height="auto">
+          <modal name="settings-panel" width="90%" height="auto">
             <div class="modal-body">
               <div class="section">
                 <h3 class="title">Text Settings</h3>
