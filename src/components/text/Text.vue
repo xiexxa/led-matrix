@@ -39,6 +39,7 @@ export default {
   },
   data: () => ({
     histories: histories,
+    textbox: '',
     numbers: [
       1, 2, 3, 4, 5, 6, 7, 8
     ]
@@ -58,6 +59,7 @@ export default {
     historyChoose: function (body) {
       console.log(this.$refs.hist)
       console.log(body)
+      this.textbox = body
     }
   },
   created () {
