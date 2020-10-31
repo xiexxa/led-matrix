@@ -9,7 +9,7 @@
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
             <div class="tags are-midium">
-              <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)">{{his.body}}</div>
+              <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body}}</div>
             </div>
             <nav class="level">
               <div class="level-left"></div>
@@ -40,7 +40,7 @@ export default {
   data: () => ({
     histories: histories,
     textbox: '',
-    isHover: true,
+    isHover: -1,
     numbers: [
       1, 2, 3, 4, 5, 6, 7, 8
     ]
@@ -66,6 +66,9 @@ export default {
       console.log(id)
       // this.isHover = !this.isHover
       this.isHover = id
+    },
+    leaveHistory: function (id) {
+      this.isHover = -1
     }
   },
   created () {
