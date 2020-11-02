@@ -17,13 +17,8 @@ function getNowDatetime () {
     return dtformat;
 }
 
-async function main() {
-    matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
-    fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
-    let colors = { r:255, g:255, b:255 };
-    let speed = 50;
-    
-    let rss = 'https://news.yahoo.co.jp/pickup/computer/rss.xml';
+function getNews (url) {
+    let rss = url;
     let answer;
     client.fetch(rss, {}, function(err, $, res) {
         if(err) { console.log('error'); return; }
@@ -32,6 +27,14 @@ async function main() {
             console.log(answer);
         }) 
     });
+    return answer;
+}
+
+async function main() {
+    matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
+    fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
+    let colors = { r:255, g:255, b:255 };
+    let speed = 50;
     
     const con = mysql.createConnection({
         host: 'localhost',
@@ -91,6 +94,15 @@ async function main() {
         });
     }
 
+    exports.feedlist = function(req, res) {
+        let sql = 'select id, name, url from feeds order by id desc';
+        con.query(sql, function (error, results, fields) {
+            res.json({
+                feeds: results
+            });
+        });
+    }
+
     exports.addPhrase = function(req, res) {
         let text = req.body.text;
         let $sql = 'insert into phrases (body, created_at, updated_at) values (?, ?, ?)';
@@ -98,6 +110,27 @@ async function main() {
         con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
             console.log('Phrase追加完了' + text);
         });
+    }
+
+    exports.addFeed = function(req, res) {
+        let name = req.body.name;
+        let url = req.body.url;
+        let sql = 'insert into feeds (name, url, created_at, updated_at) values (?, ?, ?, ?)';
+        let dtformat = getNowDatetime();
+        con.query(sql, [name, url, dtformat, dtformat], function (error, results, fields) {
+            console.log('RSS追加完了' + name + ' : ' + url);
+        });
+    }
+
+    exports.showNews = function(req, res) {
+        let name = req.body.name;
+        console.log(name);
+        let sql = 'select url from feeds where name = ?';
+        con.query(sql, [name], function (error, results, fields) {
+            console.log('News配信開始' + name);
+            console.log(results);
+        });
+        // getNews(url);
     }
 }
 main();
