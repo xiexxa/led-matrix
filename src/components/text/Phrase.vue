@@ -39,12 +39,12 @@
             <table class="table is-fullwidth">
               <thead>
                 <tr>
-                  <th>Phrase</th>
+                  <th>文</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th>Hello</th>
+                <tr  v-for="phrase in this.phrases" v-bind:key = phrase.id>
+                  <th>{{phrase.body}}</th>
                 </tr>
               </tbody>
             </table>
@@ -57,12 +57,14 @@
 
 <script>
 import Unit from './Unit'
+let phrases
 export default {
   name: 'Text',
   components: {
     Unit
   },
   data: () => ({
+    phrases: phrases,
     textbox: ''
   }),
   methods: {
@@ -71,8 +73,20 @@ export default {
     },
     registerNewPhrase: function () {
       let textbox = this.textbox
-      alert(textbox)
+      this.axios.post('/api/add/phrase', {
+        text: textbox
+      })
+        .then((res) => alert('登録完了: ' + textbox))
+        .catch((e) => alert(e))
     }
+  },
+  created () {
+    this.axios.get('/api/phrase')
+      .then((res) => {
+        phrases = res.data
+        phrases = phrases.phrases
+        console.log(phrases)
+      })
   }
 }
 </script>

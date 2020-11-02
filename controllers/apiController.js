@@ -11,13 +11,17 @@ async function sleep(ms) {
     return new Promise(r => setTimeout(r, ms));
 }
 
+function getNowDatetime () {
+    const dt = new Date();
+    let dtformat = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+    return dtformat;
+}
+
 async function main() {
     matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
-    const dt = new Date();
-
     
     let rss = 'https://news.yahoo.co.jp/pickup/computer/rss.xml';
     let answer;
@@ -43,7 +47,7 @@ async function main() {
 
        // DBにテキストを履歴として記録
         let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
-        let dtformat = dt.toFormat("YYYY/MM/DD HH24:MI:SS");
+        let dtformat = getNowDatetime();
         con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
             console.log(results);
         });
@@ -75,6 +79,24 @@ async function main() {
             res.json({
                 histories: results
             });
+        });
+    }
+
+    exports.phrase = function(req, res) {
+        let sql = 'select id, body from phrases order by id desc';
+        con.query(sql, function (error, results, fields) {
+            res.json({
+                phrases: results
+            });
+        });
+    }
+
+    exports.addPhrase = function(req, res) {
+        let text = req.body.text;
+        let $sql = 'insert into phrases (body, created_at, updated_at) values (?, ?, ?)';
+        let dtformat = getNowDatetime();
+        con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
+            console.log('Phrase追加完了' + text);
         });
     }
 }
