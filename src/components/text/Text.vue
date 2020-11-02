@@ -9,7 +9,7 @@
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
             <div class="tags are-midium">
-              <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body}}</div>
+              <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body | truncate}}</div>
             </div>
             <nav class="level">
               <div class="level-left"></div>
@@ -79,6 +79,16 @@ export default {
         histories = histories.histories
         console.log(histories)
       })
+  },
+  filters: {
+    truncate: function (value) {
+      let length = 20
+      let ommision = '...'
+      if (value.length <= length) {
+        return value
+      }
+      return value.substring(0, length) + ommision
+    }
   }
 }
 </script>
