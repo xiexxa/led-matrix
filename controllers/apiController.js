@@ -18,16 +18,22 @@ function getNowDatetime () {
 }
 
 function getNews (url) {
-    let rss = url;
-    let answer;
-    client.fetch(rss, {}, function(err, $, res) {
-        if(err) { console.log('error'); return; }
-        $('item > title').each(function(idx) {
-            answer = $(this).text();
-            console.log(answer);
-        }) 
-    });
-    return answer;
+    return new Promise((resolve, reject) => {
+		client.fetch(url, {}, function(err, $, res) {
+            //let answer = new Array();
+            let answer;
+			if (err) { console.log("error"); return; }
+        
+			$("item > title").each(function(idx) {
+                //answer.unshift( $(this).text());
+                //console.log(answer);
+                answer = $(this).text();
+                console.log( $(this).text() );
+            });
+			console.log("\n" + "RSSのタイトルを取得しました。");
+			resolve(answer);
+		});
+	});
 }
 
 async function main() {
@@ -122,15 +128,19 @@ async function main() {
         });
     }
 
-    exports.showNews = function(req, res) {
+    exports.showNews = async function(req, res) {
         let name = req.body.name;
+        let url;
+        let newsStrings;
         console.log(name);
         let sql = 'select url from feeds where name = ?';
-        con.query(sql, [name], function (error, results, fields) {
+        con.query(sql, [name], async function (error, results, fields) {
             console.log('News配信開始' + name);
-            console.log(results);
+            url = results[0].url;
+            console.log('URL: ' + url);
+            newsStrings = await getNews(url);
+            console.log('News: ' + newsStrings);
         });
-        // getNews(url);
     }
 }
 main();
