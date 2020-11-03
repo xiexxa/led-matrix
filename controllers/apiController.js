@@ -20,15 +20,15 @@ function getNowDatetime () {
 function getNews (url) {
     return new Promise((resolve, reject) => {
 		client.fetch(url, {}, function(err, $, res) {
-            //let answer = new Array();
-            let answer;
+            let answer = new Array();
+            // let answer;
 			if (err) { console.log("error"); return; }
         
 			$("item > title").each(function(idx) {
-                //answer.unshift( $(this).text());
+                answer.unshift( $(this).text());
                 //console.log(answer);
-                answer = $(this).text();
-                console.log( $(this).text() );
+                // answer = $(this).text();
+                // console.log( $(this).text() );
             });
 			console.log("\n" + "RSSのタイトルを取得しました。");
 			resolve(answer);
@@ -139,7 +139,9 @@ async function main() {
             url = results[0].url;
             console.log('URL: ' + url);
             newsStrings = await getNews(url);
-            console.log('News: ' + newsStrings);
+            for (title of newsStrings) {
+                console.log(title);
+            }
         });
     }
 }
