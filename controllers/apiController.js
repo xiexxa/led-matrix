@@ -36,6 +36,19 @@ function getNews (url) {
 	});
 }
 
+function getTextWidth (text) {
+    let width = text.length * 16;
+    return width;
+}
+
+function insertHistory (con, text) {
+    let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
+    let dtformat = getNowDatetime();
+    con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
+        console.log(results);
+    });
+}
+
 async function main() {
     matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
@@ -49,31 +62,20 @@ async function main() {
         database: 'testdb'
     });
 
-    exports.index = async function(req, res) {
-       let text = req.body.text;
-       let x = 96;
-       let tail = text.length * 16 + text.length;
-
-       // DBにテキストを履歴として記録
-        let $sql = 'insert into text_histories (body, created_at, updated_at) values (?, ?, ?)';
-        let dtformat = getNowDatetime();
-        con.query($sql, [text, dtformat, dtformat], function (error, results, fields) {
-            console.log(results);
-        });
-
-       console.log(tail);
-       console.log('speed: '+speed);
-
-       res.send(text);
-       while (x+tail >= 0) {
-        matrix.clear();
-        matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
-        matrix.update();
-        x--;
-        console.log(x);
-        await sleep(speed);
-       }
-       console.log('done: '+text);
+    exports.index = async function (req, res) {
+        let text = req.body.text;
+        let width = getTextWidth(text);
+        let x = matrix.getWidth();
+        insertHistory(con, text);
+        while (x+width >= 0) {
+            matrix.clear();
+            matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
+            matrix.update();
+            x--;
+            console.log(x);
+            await sleep(speed);
+        }
+        console.log('done: '+text);
     }
 
     exports.colors = function(req, res) {
