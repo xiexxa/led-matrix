@@ -52,7 +52,6 @@
 
 <script>
 import Unit from './Unit'
-let feeds
 export default {
   name: 'Text',
   components: {

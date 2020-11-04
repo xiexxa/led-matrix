@@ -58,7 +58,6 @@
 
 <script>
 import Unit from './Unit'
-let phrases
 export default {
   name: 'Text',
   components: {

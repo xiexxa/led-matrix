@@ -4,13 +4,13 @@
     <p class="subtitle is-7">{{ this.description }}</p>
     <div class="tabs is-small">
       <ul>
-        <li class="is-active">
+        <li v-bind:class="[this.path === '/text' ? 'is-active' : '']">
           <router-link to="/text">Main</router-link>
         </li>
-        <li class="">
+        <li v-bind:class="[this.path === '/text/phrase' ? 'is-active' : '']">
           <router-link to="/text/phrase">定型文</router-link>
         </li>
-        <li class="">
+        <li v-bind:class="[this.path === '/text/rss' ? 'is-active' : '']">
           <router-link to="/text/rss">RSS</router-link>
         </li>
       </ul>
@@ -75,7 +75,8 @@ export default {
     'chrome-picker': Chrome
   },
   data: () => ({
-    colors: defaultProps
+    colors: defaultProps,
+    path: ''
   }),
   methods: {
     settingsShow: function () {
@@ -103,6 +104,9 @@ export default {
         .then((res) => alert(res.data))
         .catch((e) => alert(e))
     }
+  },
+  mounted () {
+    this.path = this.$route.path
   }
 }
 </script>
