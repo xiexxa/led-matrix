@@ -32,6 +32,7 @@
             <p v-show="loading">Loading...</p>
             <div v-show="!loading" class="select">
               <select name="rss-source" id="" v-model="selected">
+                <option disabled selected>RSSのソースを選択</option>
                 <option v-for="feed in this.feeds" v-bind:key = feed.id v-bind:value="feed.name">{{feed.name}}</option>
               </select>
             </div>
