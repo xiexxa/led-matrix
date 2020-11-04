@@ -142,6 +142,20 @@ async function main() {
             for (title of newsStrings) {
                 console.log(title);
             }
+            for (title of newsStrings) {
+                newsStrings += title;
+            }
+            let x = 96;
+            let tail = newsStrings.length * 16;
+            while (x+tail >= 0) {
+                matrix.clear();
+                matrix.drawText(x, 0, newsStrings, fontpath, colors.r, colors.g, colors.b);
+                matrix.update();
+                x--;
+                console.log(x);
+                await sleep(speed);
+            }
+            console.log('done: '+text);
         });
     }
 }
