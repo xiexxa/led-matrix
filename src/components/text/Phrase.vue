@@ -43,7 +43,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr  v-for="phrase in this.phrases" v-bind:key = phrase.id>
+                <tr v-for="phrase in this.phrases" v-bind:key = phrase.id>
                   <th v-on:click="sendDisplayRequest(phrase.body)">{{phrase.body}}</th>
                 </tr>
               </tbody>
@@ -87,13 +87,14 @@ export default {
         .catch((e) => alert(e))
     }
   },
-  created () {
-    this.axios.get('/api/get/phrase')
+  async mounted () {
+    await this.axios.get('/api/get/phrase')
       .then((res) => {
         phrases = res.data
         phrases = phrases.phrases
         console.log(phrases)
       })
+    console.log('done')
   }
 }
 </script>
