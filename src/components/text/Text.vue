@@ -52,7 +52,7 @@ export default {
         text: textbox
       })
         .then((res) => alert(res.data))
-        .catch((e) => alert(e))
+        .catch((e) => alert('AAA' + e.response.status))
     },
     textBoxReset: function () {
       this.textbox = ''
