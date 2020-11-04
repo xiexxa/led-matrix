@@ -48,7 +48,7 @@ export default {
   methods: {
     sendDisplayRequest: function () {
       let textbox = this.textbox
-      this.axios.post('/api', {
+      this.axios.post('/api/show/text', {
         text: textbox
       })
         .then((res) => alert(res.data))
@@ -73,7 +73,7 @@ export default {
   },
   created () {
     console.log('history post request error')
-    this.axios.get('/api/history')
+    this.axios.get('/api/get/history')
       .then((res) => {
         histories = res.data
         histories = histories.histories

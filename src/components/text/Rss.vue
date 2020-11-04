@@ -82,7 +82,7 @@ export default {
     sendDisplayRequest: function () {
       let selected = this.selected
       // alert(selected)
-      this.axios.post('/api/show/news', {
+      this.axios.post('/api/show/feed', {
         name: selected
       })
         .then((res) => alert('ニュース配信開始: ' + selected))
@@ -90,7 +90,7 @@ export default {
     }
   },
   created () {
-    this.axios.get('/api/feed')
+    this.axios.get('/api/get/feed')
       .then((res) => {
         feeds = res.data
         feeds = feeds.feeds

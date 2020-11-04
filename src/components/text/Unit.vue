@@ -92,7 +92,7 @@ export default {
       if (this.speed === undefined) {
         this.speed = 50
       }
-      this.axios.post('/api/colors', {
+      this.axios.post('/api/update/colors', {
         colors: {
           r: this.colors.rgba.r,
           g: this.colors.rgba.g,

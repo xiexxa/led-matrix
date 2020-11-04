@@ -158,5 +158,9 @@ async function main() {
             console.log('done: '+text);
         });
     }
+
+    exports.speed = function () {
+        return 0;
+    }
 }
 main();

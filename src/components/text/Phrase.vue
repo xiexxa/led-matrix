@@ -80,7 +80,7 @@ export default {
         .catch((e) => alert(e))
     },
     sendDisplayRequest: function (text) {
-      this.axios.post('/api', {
+      this.axios.post('/api/show/text', {
         text: text
       })
         .then((res) => alert(res.data))
@@ -88,7 +88,7 @@ export default {
     }
   },
   created () {
-    this.axios.get('/api/phrase')
+    this.axios.get('/api/get/phrase')
       .then((res) => {
         phrases = res.data
         phrases = phrases.phrases
