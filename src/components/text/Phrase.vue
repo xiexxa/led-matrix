@@ -43,7 +43,8 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="phrase in this.phrases" v-bind:key = phrase.id>
+                <p v-show="loading">Loading...</p>
+                <tr v-show="!loading" v-for="phrase in this.phrases" v-bind:key = phrase.id>
                   <th v-on:click="sendDisplayRequest(phrase.body)">{{phrase.body}}</th>
                 </tr>
               </tbody>
@@ -64,8 +65,9 @@ export default {
     Unit
   },
   data: () => ({
-    phrases: phrases,
-    textbox: ''
+    phrases: [],
+    textbox: '',
+    loading: true
   }),
   methods: {
     phraseShow: function () {
@@ -88,13 +90,14 @@ export default {
     }
   },
   async mounted () {
+    console.log('mounted')
     await this.axios.get('/api/get/phrase')
-      .then((res) => {
-        phrases = res.data
-        phrases = phrases.phrases
-        console.log(phrases)
+      .then(res => {
+        console.log(res.data)
+        console.log(res.status)
+        this.phrases = res.data.phrases
       })
-    console.log('done')
+    this.loading = false
   }
 }
 </script>

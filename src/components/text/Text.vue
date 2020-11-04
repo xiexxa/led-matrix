@@ -9,10 +9,8 @@
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
             <div class="tags are-midium">
-              <div v-show="loading">Loading...</div>
-              <div v-show="!loading">Done</div>
-              <div v-for="item in todos" v-bind:key="item.id">{{items}}</div>
-              <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body | truncate}}</div>
+              <p v-show="loading">Loading...</p>
+              <div v-show="!loading" v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body | truncate}}</div>
             </div>
             <nav class="level">
               <div class="level-left"></div>
@@ -73,22 +71,6 @@ export default {
     },
     leaveHistory: function (id) {
       this.isHover = -1
-    },
-    getHistories: function () {
-      // this.todos = 'ssssssss'
-      /*
-      try {
-        let histories = await this.axios.get('/api/get/history')
-        console.log('histories')
-        histories = histories.data.histories
-        console.log(histories)
-      } catch (error) {
-        console.log('error')
-      }
-      */
-    },
-    sleep: async function (ms) {
-      return new Promise(resolve => setTimeout(resolve, ms))
     }
   },
   async mounted () {
@@ -99,7 +81,6 @@ export default {
         console.log(res.status)
         this.histories = res.data.histories
       })
-    // await this.sleep(3000)
     this.loading = false
   },
   filters: {

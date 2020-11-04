@@ -29,7 +29,8 @@
                 </div>
               </div>
             </div>
-            <div class="select">
+            <p v-show="loading">Loading...</p>
+            <div v-show="!loading" class="select">
               <select name="rss-source" id="" v-model="selected">
                 <option v-for="feed in this.feeds" v-bind:key = feed.id v-bind:value="feed.name">{{feed.name}}</option>
               </select>
@@ -58,9 +59,10 @@ export default {
     Unit
   },
   data: () => ({
-    feeds: feeds,
+    feeds: [],
     name: '',
-    url: ''
+    url: '',
+    loading: true
   }),
   methods: {
     rssSourceShow: function () {
@@ -89,13 +91,15 @@ export default {
         .catch((e) => alert(e))
     }
   },
-  created () {
-    this.axios.get('/api/get/feed')
-      .then((res) => {
-        feeds = res.data
-        feeds = feeds.feeds
-        console.log(feeds)
+  async mounted () {
+    console.log('mounted')
+    await this.axios.get('/api/get/feed')
+      .then(res => {
+        console.log(res.data)
+        console.log(res.status)
+        this.feeds = res.data.feeds
       })
+    this.loading = false
   }
 }
 </script>
