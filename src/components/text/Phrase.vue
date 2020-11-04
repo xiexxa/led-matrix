@@ -44,7 +44,7 @@
               </thead>
               <tbody>
                 <tr  v-for="phrase in this.phrases" v-bind:key = phrase.id>
-                  <th>{{phrase.body}}</th>
+                  <th v-on:click="sendDisplayRequest(phrase.body)">{{phrase.body}}</th>
                 </tr>
               </tbody>
             </table>
@@ -77,6 +77,13 @@ export default {
         text: textbox
       })
         .then((res) => alert('登録完了: ' + textbox))
+        .catch((e) => alert(e))
+    },
+    sendDisplayRequest: function (text) {
+      this.axios.post('/api', {
+        text: text
+      })
+        .then((res) => alert(res.data))
         .catch((e) => alert(e))
     }
   },
