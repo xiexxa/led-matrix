@@ -9,6 +9,9 @@
             <input type="text" class="input" name="textbox" v-model="textbox">
             <p class="is-7">history</p>
             <div class="tags are-midium">
+              <div v-show="loading">Loading...</div>
+              <div v-show="!loading">Done</div>
+              <div v-for="item in todos" v-bind:key="item.id">{{items}}</div>
               <div v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body | truncate}}</div>
             </div>
             <nav class="level">
@@ -31,14 +34,15 @@
 
 <script>
 import Unit from './Unit'
-let histories
+// let histories
 export default {
   name: 'Text',
   components: {
     Unit
   },
   data: () => ({
-    histories: histories,
+    histories: [],
+    loading: true,
     textbox: '',
     isHover: -1,
     numbers: [
@@ -69,16 +73,34 @@ export default {
     },
     leaveHistory: function (id) {
       this.isHover = -1
+    },
+    getHistories: function () {
+      // this.todos = 'ssssssss'
+      /*
+      try {
+        let histories = await this.axios.get('/api/get/history')
+        console.log('histories')
+        histories = histories.data.histories
+        console.log(histories)
+      } catch (error) {
+        console.log('error')
+      }
+      */
+    },
+    sleep: async function (ms) {
+      return new Promise(resolve => setTimeout(resolve, ms))
     }
   },
-  created () {
-    console.log('history post request error')
-    this.axios.get('/api/get/history')
-      .then((res) => {
-        histories = res.data
-        histories = histories.histories
-        console.log(histories)
+  async mounted () {
+    console.log('mounted')
+    await this.axios.get('/api/get/history')
+      .then(res => {
+        console.log(res.data)
+        console.log(res.status)
+        this.histories = res.data.histories
       })
+    // await this.sleep(3000)
+    this.loading = false
   },
   filters: {
     truncate: function (value) {
