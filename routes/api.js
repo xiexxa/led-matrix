@@ -20,4 +20,7 @@ router.get('/get/feed', api_controller.feedlist);
 router.post('/add/phrase', api_controller.addPhrase);
 router.post('/add/feed', api_controller.addFeed);
 
+// Test
+router.get('/test', api_controller.test);
+
 module.exports = router;

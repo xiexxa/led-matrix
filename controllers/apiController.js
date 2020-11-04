@@ -62,6 +62,22 @@ async function main() {
         database: 'testdb'
     });
 
+    exports.test = async function () {
+        let i, y;
+        while (1) {
+            for (i=0; i<50; i++) {
+                for (y=0; y<15; y++) {
+                    matrix.setPixel(i, y, 0, 0, 0);
+                }
+                for (y=0; y<15; y++) {
+                    matrix.setPixel(i, y, 255, 255, 255);
+                }
+                matrix.update();
+                await sleep(33);
+            }
+        }
+    }
+
     exports.index = async function (req, res) {
         let text = req.body.text;
         let width = getTextWidth(text);
