@@ -1,3 +1,5 @@
 <template>
-  <div>INDEX LED-MATRIX</div>
+  <div>
+    <v-btn>Button</v-btn>
+  </div>
 </template>
