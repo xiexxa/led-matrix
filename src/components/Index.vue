@@ -1,5 +1,3 @@
 <template>
-  <div>
-    <v-btn>Button</v-btn>
-  </div>
+  <div>INDEX</div>
 </template>
