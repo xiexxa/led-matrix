@@ -24,8 +24,8 @@
             <div class="modal-body">
               <div class="section">
                 <h3 class="title">Text Settings</h3>
-                <label for="speed" class="label">Speed</label>
-                <input type="range" name='speed' min='1' max='100' v-model="speed">
+                <label for="speed" class="label">Speed</label> {{ updateSpeed }}
+                <input type="range" name='speed' min='1' max='100' v-model="speed" value="30">
                 <label for="font" class="label">Font</label>
                 <div class="select">
                   <select name="font" id="">
@@ -76,7 +76,8 @@ export default {
   },
   data: () => ({
     colors: defaultProps,
-    path: ''
+    path: '',
+    speed: ''
   }),
   methods: {
     settingsShow: function () {
@@ -90,6 +91,10 @@ export default {
     },
 
     sendDisplayChangeColor: function () {
+      console.log('Press')
+      console.log(this.colors)
+      console.log(this.speed)
+      /*
       if (this.speed === undefined) {
         this.speed = 50
       }
@@ -103,10 +108,26 @@ export default {
       })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))
+        */
     }
   },
   mounted () {
     this.path = this.$route.path
+  },
+  computed: {
+    updateSpeed: function () {
+      return this.speed
+    }
+  },
+  watch: {
+    speed: function () {
+      console.log(this.speed)
+      this.axios.post('/api/update/speed', {
+        speed: this.speed
+      })
+        .then((res) => console.log('Done' + res.data))
+        .catch((e) => alert(e))
+    }
   }
 }
 </script>

@@ -49,11 +49,20 @@ function insertHistory (con, text) {
     });
 }
 
+function interruptRejector (isAvailavle, res) {
+    if (isAvailavle == false) {
+        console.log('false');
+        res.send('false');
+        return -1;
+    }
+}
+
 async function main() {
     matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
+    let isAvailavle = true;
     
     const con = mysql.createConnection({
         host: 'localhost',
@@ -79,10 +88,14 @@ async function main() {
     }
 
     exports.index = async function (req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
         let text = req.body.text;
         let width = getTextWidth(text);
         let x = matrix.getWidth();
         insertHistory(con, text);
+        isAvailavle = false;
         while (x+width >= 0) {
             matrix.clear();
             matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
@@ -91,6 +104,7 @@ async function main() {
             console.log(x);
             await sleep(speed);
         }
+        isAvailavle = true;
         console.log('done: '+text);
     }
 
@@ -147,6 +161,9 @@ async function main() {
     }
 
     exports.showNews = async function(req, res) {
+        if (interruptRejector(isAvailavle, res) == -1) { 
+            return -1;
+        }
         let name = req.body.name;
         let url;
         let newsStrings;
@@ -165,6 +182,7 @@ async function main() {
             }
             let x = 96;
             let tail = newsStrings.length * 16;
+            isAvailavle = false;
             while (x+tail >= 0) {
                 matrix.clear();
                 matrix.drawText(x, 0, newsStrings, fontpath, colors.r, colors.g, colors.b);
@@ -173,12 +191,15 @@ async function main() {
                 console.log(x);
                 await sleep(speed);
             }
+            isAvailavle = true;
             console.log('done: '+text);
         });
     }
 
-    exports.speed = function () {
-        return 0;
+    exports.speed = function (req, res) {
+        speed = req.body.speed;
+        console.log(speed);
+        res.send('got: ' + speed)
     }
 }
 main();
