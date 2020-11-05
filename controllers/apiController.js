@@ -109,9 +109,9 @@ async function main() {
     }
 
     exports.colors = function(req, res) {
-        speed = parseInt(req.body.speed,10);
-        console.log(req.body.colors);
         colors = req.body.colors;
+        console.log(colors);
+        res.send('got: ' + colors);
     }
 
     exports.history = function(req, res) {
@@ -198,6 +198,7 @@ async function main() {
 
     exports.speed = function (req, res) {
         speed = req.body.speed;
+        speed = 100 - speed;
         console.log(speed);
         res.send('got: ' + speed)
     }

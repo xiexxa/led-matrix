@@ -94,21 +94,6 @@ export default {
       console.log('Press')
       console.log(this.colors)
       console.log(this.speed)
-      /*
-      if (this.speed === undefined) {
-        this.speed = 50
-      }
-      this.axios.post('/api/update/colors', {
-        colors: {
-          r: this.colors.rgba.r,
-          g: this.colors.rgba.g,
-          b: this.colors.rgba.b
-        },
-        speed: this.speed
-      })
-        .then((res) => alert(res.data))
-        .catch((e) => alert(e))
-        */
     }
   },
   mounted () {
@@ -126,6 +111,16 @@ export default {
         speed: this.speed
       })
         .then((res) => console.log('Done' + res.data))
+        .catch((e) => alert(e))
+    },
+    colors: function () {
+      console.log(this.colors.rgba.r)
+      console.log(this.colors.rgba.g)
+      console.log(this.colors.rgba.b)
+      this.axios.post('/api/update/colors', {
+        colors: this.colors.rgba
+      })
+        .then((res) => console.log('DoneColor: ' + res.data))
         .catch((e) => alert(e))
     }
   }
