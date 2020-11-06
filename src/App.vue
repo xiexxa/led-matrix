@@ -25,23 +25,17 @@
       <v-list dense nav>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>
-              <router-link to="/">led-matrix</router-link>
-            </v-list-item-title>
+            <router-link tag="v-list-item-title" to="/">led-matrix</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>
-              <router-link to="/text">Text</router-link>
-            </v-list-item-title>
+            <router-link tag="v-list-item-title" to="/text">text</router-link>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>
-              <router-link to="/image">Image</router-link>
-            </v-list-item-title>
+            <router-link tag="v-list-item-title" to="/image">Image</router-link>
           </v-list-item-content>
         </v-list-item>
       </v-list>
