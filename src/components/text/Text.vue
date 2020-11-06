@@ -1,3 +1,4 @@
+<!--
 <template>
   <div class="tile is-ancestor">
     <div class="tile is-vertical">
@@ -28,6 +29,14 @@
       </div>
     </div>
   </div>
+</template>
+-->
+<template>
+  <v-container>
+    <v-autocomplete :items="histories" label="表示したい文字列を入力" solo></v-autocomplete>
+    <v-btn>Reset</v-btn>
+    <v-btn color="primary">Send</v-btn>
+  </v-container>
 </template>
 
 <script>
