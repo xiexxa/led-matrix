@@ -10,7 +10,7 @@
 -->
 <template>
   <v-app>
-    <v-navigation-drawer app>
+    <v-navigation-drawer v-model="drawer" app>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="title">
@@ -25,23 +25,30 @@
       <v-list dense nav>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>Title 1</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/">led-matrix</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>Title 1</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/text">Text</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
         <v-list-item link>
           <v-list-item-content>
-            <v-list-item-title>Title 1</v-list-item-title>
+            <v-list-item-title>
+              <router-link to="/image">Image</router-link>
+            </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar color="light-blue darken-4" app>
-      <!-- -->
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>Title</v-toolbar-title>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -58,7 +65,10 @@ export default {
   name: 'App',
   components: {
     Header
-  }
+  },
+  data: () => ({
+    drawer: null
+  })
 }
 </script>
 
