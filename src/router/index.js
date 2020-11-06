@@ -10,6 +10,7 @@ import NotFound from '../components/NotFound.vue'
 import VModal from 'vue-js-modal'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Router)
 Vue.use(VModal)

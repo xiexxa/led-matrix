@@ -13,21 +13,26 @@
       </v-list-item>
       <v-divider></v-divider>
       <v-list dense nav>
-        <router-link tag="v-list-item" to="/text" link>
-          <v-list-item-content>
+        <v-list-group :value="true" no-action prepend-icon="mdi-format-text">
+          <template v-slot:activator>
             <v-list-item-title>Text</v-list-item-title>
-          </v-list-item-content>
-        </router-link>
-        <router-link tag="v-list-item" to="/image" link>
-          <v-list-item-content>
-            <v-list-item-title>Image</v-list-item-title>
-          </v-list-item-content>
-        </router-link>
-        <router-link tag="v-list-item" to="/video" link>
-          <v-list-item-content>
-            <v-list-item-title>Video</v-list-item-title>
-          </v-list-item-content>
-        </router-link>
+          </template>
+          <router-link tag="v-list-item" to="/text" link>
+            <v-list-item-content>
+              <v-list-item-title>Text</v-list-item-title>
+            </v-list-item-content>
+          </router-link>
+          <router-link tag="v-list-item" to="/image" link>
+            <v-list-item-content>
+              <v-list-item-title>Image</v-list-item-title>
+            </v-list-item-content>
+          </router-link>
+          <router-link tag="v-list-item" to="/video" link>
+            <v-list-item-content>
+              <v-list-item-title>Video</v-list-item-title>
+            </v-list-item-content>
+          </router-link>
+        </v-list-group>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
