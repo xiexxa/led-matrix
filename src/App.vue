@@ -1,13 +1,3 @@
-<!--
-<template>
-  <div id="app" class="has-background-white">
-    <div class="container">
-      <Header/>
-      <router-view/>
-    </div>
-  </div>
-</template>
--->
 <template>
   <v-app>
     <v-navigation-drawer v-model="drawer" app>
@@ -67,7 +57,6 @@ export default {
 </script>
 
 <style>
-@import "./mystyles.css";
 #app {
   font-family: "Helvetica Neue",
     Arial,
