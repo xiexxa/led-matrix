@@ -33,28 +33,27 @@
 -->
 <template>
   <v-container>
-    <v-autocomplete :items="histories" label="表示したい文字列を入力" solo></v-autocomplete>
-    <v-btn>Reset</v-btn>
-    <v-btn color="primary">Send</v-btn>
+    <v-form>
+      <v-row>
+        <v-col>
+          <v-autocomplete v-model="textbox" :items="this.histories" item-text="body" placeholder="表示したい文字列を入力" filled @click:clear="textBoxReset" clear-icon="mdi-close-circle" @click:append-outer="sendDisplayRequest" append-outer-icon="mdi-send" clearable solo hide-details hide-no-data>
+          </v-autocomplete>
+        </v-col>
+      </v-row>
+    </v-form>
   </v-container>
 </template>
 
 <script>
-import Unit from './Unit'
 // let histories
 export default {
   name: 'Text',
   components: {
-    Unit
   },
   data: () => ({
     histories: [],
-    loading: true,
-    textbox: '',
-    isHover: -1,
-    numbers: [
-      1, 2, 3, 4, 5, 6, 7, 8
-    ]
+    isLoading: false,
+    textBox: ''
   }),
   methods: {
     sendDisplayRequest: function () {
@@ -86,7 +85,7 @@ export default {
     console.log('mounted')
     await this.axios.get('/api/get/history')
       .then(res => {
-        console.log(res.data)
+        console.log(res.data.histories)
         console.log(res.status)
         this.histories = res.data.histories
       })

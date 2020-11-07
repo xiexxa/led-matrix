@@ -22,17 +22,27 @@
               <v-list-item-title>Text</v-list-item-title>
             </v-list-item-content>
           </router-link>
-          <router-link tag="v-list-item" to="/image" link>
+          <router-link tag="v-list-item" to="/text/phrase" link>
             <v-list-item-content>
-              <v-list-item-title>Image</v-list-item-title>
+              <v-list-item-title>Phrase</v-list-item-title>
             </v-list-item-content>
           </router-link>
-          <router-link tag="v-list-item" to="/video" link>
+          <router-link tag="v-list-item" to="/text/rss" link>
             <v-list-item-content>
-              <v-list-item-title>Video</v-list-item-title>
+              <v-list-item-title>RSS</v-list-item-title>
             </v-list-item-content>
           </router-link>
         </v-list-group>
+        <router-link tag="v-list-item" to="/image" link>
+          <v-list-item-content>
+            <v-list-item-title>Image</v-list-item-title>
+          </v-list-item-content>
+        </router-link>
+        <router-link tag="v-list-item" to="/video" link>
+          <v-list-item-content>
+            <v-list-item-title>Video</v-list-item-title>
+          </v-list-item-content>
+        </router-link>
       </v-list>
     </v-navigation-drawer>
     <v-app-bar app>
