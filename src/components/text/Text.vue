@@ -34,7 +34,7 @@
 <template>
   <v-container>
     <v-form>
-      <v-row>
+      <v-row justify="center">
         <v-col>
           <v-autocomplete v-model="textbox" :items="this.histories" item-text="body" placeholder="表示したい文字列を入力" filled @click:clear="textBoxReset" clear-icon="mdi-close-circle" @click:append-outer="sendDisplayRequest" append-outer-icon="mdi-send" clearable solo hide-details hide-no-data>
           </v-autocomplete>

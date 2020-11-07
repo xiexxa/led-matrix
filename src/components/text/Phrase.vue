@@ -1,3 +1,4 @@
+<!--
 <template>
   <div class="tile is-ancestor">
     <div class="tile is-vertical">
@@ -55,17 +56,25 @@
     </div>
   </div>
 </template>
+-->
 
+<template>
+  <v-container>
+    <v-data-table :headers="headers" :items="phrases" item-key="id" :search="search">
+      <template v-slot:top>
+        <v-text-field></v-text-field>
+      </template>
+    </v-data-table>
+  </v-container>
+</template>
 <script>
-import Unit from './Unit'
 export default {
   name: 'Text',
   components: {
-    Unit
   },
   data: () => ({
     phrases: [],
-    textbox: '',
+    search: '',
     loading: true
   }),
   methods: {
@@ -92,11 +101,23 @@ export default {
     console.log('mounted')
     await this.axios.get('/api/get/phrase')
       .then(res => {
-        console.log(res.data)
+        console.log(res.data.phrases)
         console.log(res.status)
         this.phrases = res.data.phrases
       })
     this.loading = false
+  },
+  computed: {
+    headers () {
+      return [
+        {
+          text: 'Phrase',
+          align: 'start',
+          sortable: true,
+          value: 'body'
+        }
+      ]
+    }
   }
 }
 </script>
