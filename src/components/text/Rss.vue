@@ -1,3 +1,4 @@
+<!--
 <template>
   <div class="tile is-ancestor">
     <div class="tile is-vertical">
@@ -50,19 +51,51 @@
     </div>
   </div>
 </template>
+-->
+<template>
+  <v-container>
+    <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
+      <template v-slot:top>
+        <v-text-field></v-text-field>
+      </template>
+    </v-data-table>
+    <v-dialog v-model="dialogEdit" width="500">
+      <template v-slot:activator="{ on }">
+        <v-btn v-on="on">
+          Click
+        </v-btn>
+        <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
+          <template v-slot:[`item.edit`]="{ item }">
+            <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
+            <v-icon small>mdi-delete</v-icon>
+          </template>
+        </v-data-table>
+      </template>
+      <v-card>
+        <v-card-actions v-model="editedFeed.name">
+          <span>Text Text</span>
+          <span>{{editedFeed.name}}</span>
+          <v-btn @click="dialogEdit = false">
+            Close
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </v-container>
+</template>
 
 <script>
-import Unit from './Unit'
 export default {
-  name: 'Text',
+  name: 'Rss',
   components: {
-    Unit
   },
   data: () => ({
     feeds: [],
     name: '',
     url: '',
-    loading: true
+    loading: true,
+    dialogEdit: false,
+    editedFeed: ''
   }),
   methods: {
     rssSourceShow: function () {
@@ -89,6 +122,12 @@ export default {
       })
         .then((res) => alert('ニュース配信開始: ' + selected))
         .catch((e) => alert(e))
+    },
+    editFeed: function (item) {
+      console.log('press')
+      console.log(item)
+      this.dialogEdit = true
+      this.editedFeed = item
     }
   },
   async mounted () {
@@ -100,6 +139,30 @@ export default {
         this.feeds = res.data.feeds
       })
     this.loading = false
+  },
+  computed: {
+    headers () {
+      return [
+        {
+          text: 'Source',
+          align: 'start',
+          sortable: true,
+          value: 'name'
+        },
+        {
+          text: 'URL',
+          align: 'start',
+          sortable: false,
+          value: 'url'
+        },
+        {
+          text: 'Edit',
+          align: 'center',
+          sortable: false,
+          value: 'edit'
+        }
+      ]
+    }
   }
 }
 </script>
