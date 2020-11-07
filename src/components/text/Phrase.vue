@@ -65,6 +65,39 @@
         <v-text-field></v-text-field>
       </template>
     </v-data-table>
+    <v-btn fab color="pink" dark accent fixed right bottom>
+      <v-icon>mdi-plus</v-icon>
+    </v-btn>
+    <v-dialog v-model="dialogAdd" width="500">
+      <template v-slot:activator="{ on }">
+        <v-btn fab color="pink" dark accent fixed right bottom v-on="on">
+          <v-icon>mdi-plus</v-icon>
+        </v-btn>
+      </template>
+      <v-card>
+        <v-card-title>
+          <span class="headline">Add Phrase</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field label="Phrase" required></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialogAdd = false">
+            Cancel
+          </v-btn>
+          <v-btn color="blue darken-1" text>
+            Add
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -75,7 +108,8 @@ export default {
   data: () => ({
     phrases: [],
     search: '',
-    loading: true
+    loading: true,
+    dialogAdd: false
   }),
   methods: {
     phraseShow: function () {
