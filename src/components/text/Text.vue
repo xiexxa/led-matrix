@@ -41,12 +41,29 @@
           <v-card class="mx-auto my-12">
             <v-card-title>Settings</v-card-title>
             <v-card-text>
+              <v-toolbar-title>
+                <span class="subheading">Speed</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
               <v-row align="center" class="mx-0">
                 <span class="display-3 font-weight-light" v-text="speed"></span>
-                <v-slider min="1" max="100" v-model="speed" append-icon="mdi-rabbit" prepend-icon="mdi-tortoise"></v-slider>
               </v-row>
+              <v-row>
+                <v-slider min="1" max="100" v-model="speed">
+                  <template v-slot:prepend>
+                    <v-icon @click="decrement">mdi-tortoise</v-icon>
+                  </template>
+                  <template v-slot:append>
+                    <v-icon @click="increment">mdi-rabbit</v-icon>
+                  </template>
+                </v-slider>
+              </v-row>
+              <v-toolbar-title>
+                <span class="subheading">Color</span>
+                <v-spacer></v-spacer>
+              </v-toolbar-title>
               <v-row align="center" class="mx-0">
-                <v-color-picker dot-size="25" swatches-max-height="200" v-model="rgb"></v-color-picker>
+                <v-color-picker dot-size="25" canvas-height="300" swatches-max-height="200" v-model="rgb" show-swatches></v-color-picker>
               </v-row>
             </v-card-text>
           </v-card>
@@ -95,6 +112,12 @@ export default {
     },
     leaveHistory: function (id) {
       this.isHover = -1
+    },
+    decrement: function () {
+      this.speed--
+    },
+    increment: function () {
+      this.speed++
     }
   },
   async mounted () {
