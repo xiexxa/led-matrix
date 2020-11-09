@@ -38,6 +38,15 @@
         <v-col>
           <v-autocomplete v-model="textbox" :items="this.histories" item-text="body" placeholder="表示したい文字列を入力" filled @click:clear="textBoxReset" clear-icon="mdi-close-circle" @click:append-outer="sendDisplayRequest" append-outer-icon="mdi-send" clearable solo hide-details hide-no-data>
           </v-autocomplete>
+          <v-card class="mx-auto my-12">
+            <v-card-title>Settings</v-card-title>
+            <v-card-text>
+              <v-row align="center" class="mx-0">
+                <span class="display-3 font-weight-light" v-text="speed"></span>
+                <v-slider min="1" max="100" v-model="speed" append-icon="mdi-magnify-plus-outline" prepend-icon="mdi-magnify-minus-outline"></v-slider>
+              </v-row>
+            </v-card-text>
+          </v-card>
         </v-col>
       </v-row>
     </v-form>
@@ -53,7 +62,8 @@ export default {
   data: () => ({
     histories: [],
     isLoading: false,
-    textBox: ''
+    textBox: '',
+    speed: ''
   }),
   methods: {
     sendDisplayRequest: function () {
@@ -99,6 +109,16 @@ export default {
         return value
       }
       return value.substring(0, length) + ommision
+    }
+  },
+  watch: {
+    speed: function () {
+      console.log(this.speed)
+      this.axios.post('/api/update/speed', {
+        speed: this.speed
+      })
+        .then((res) => console.log('Done' + res.data))
+        .catch((e) => alert(e))
     }
   }
 }
