@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header title="Text"></Header>
+    <Header v-bind:title="this.title"></Header>
     <v-main>
       <router-view></router-view>
     </v-main>
@@ -14,6 +14,13 @@ export default {
   name: 'App',
   components: {
     Header
+  },
+  data: () => ({
+    title: ''
+  }),
+  mounted () {
+    console.log(this.$route.path)
+    this.title = this.$route.path
   }
 }
 </script>
