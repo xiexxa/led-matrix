@@ -43,7 +43,10 @@
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <span class="display-3 font-weight-light" v-text="speed"></span>
-                <v-slider min="1" max="100" v-model="speed" append-icon="mdi-magnify-plus-outline" prepend-icon="mdi-magnify-minus-outline"></v-slider>
+                <v-slider min="1" max="100" v-model="speed" append-icon="mdi-rabbit" prepend-icon="mdi-tortoise"></v-slider>
+              </v-row>
+              <v-row align="center" class="mx-0">
+                <v-color-picker dot-size="25" swatches-max-height="200" v-model="rgb"></v-color-picker>
               </v-row>
             </v-card-text>
           </v-card>
@@ -62,8 +65,11 @@ export default {
   data: () => ({
     histories: [],
     isLoading: false,
-    textBox: '',
-    speed: ''
+    textbox: '',
+    speed: '',
+    types: ['hex', 'rgb', 'hsl', 'hsv'],
+    type: 'hex',
+    rgb: { r: 0, g: 0, b: 255 }
   }),
   methods: {
     sendDisplayRequest: function () {
@@ -119,6 +125,26 @@ export default {
       })
         .then((res) => console.log('Done' + res.data))
         .catch((e) => alert(e))
+    },
+    rgb: function () {
+      console.log('rgb: ' + this.rgb.r)
+      console.log('rgb: ' + this.rgb.g)
+      console.log('rgb: ' + this.rgb.b)
+      this.axios.post('/api/update/colors', {
+        colors: this.rgb
+      })
+        .then((res) => console.log('DoneColor: ' + res.data))
+        .catch((e) => alert(e))
+    }
+  },
+  computed: {
+    color: {
+      get () {
+        return this[this.type]
+      },
+      set (v) {
+        this[this.type] = v
+      }
     }
   }
 }
