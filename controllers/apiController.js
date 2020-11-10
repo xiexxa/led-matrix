@@ -37,6 +37,7 @@ function getNews (url) {
 }
 
 function getTextWidth (text) {
+    console.log(text + 'llll')
     let width = text.length * 16;
     return width;
 }
@@ -92,6 +93,7 @@ async function main() {
             return -1;
         }
         let text = req.body.text;
+        console.log(text + 'ttt')
         let width = getTextWidth(text);
         let x = matrix.getWidth();
         insertHistory(con, text);

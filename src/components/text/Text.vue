@@ -36,7 +36,7 @@
     <v-form>
       <v-row justify="center">
         <v-col>
-          <v-autocomplete v-model="textbox" :items="this.histories" item-text="body" placeholder="表示したい文字列を入力" filled @click:clear="textBoxReset" clear-icon="mdi-close-circle" @click:append-outer="sendDisplayRequest" append-outer-icon="mdi-send" clearable solo hide-details hide-no-data>
+          <v-autocomplete v-model="this.textbox" :items="this.histories" item-text="body" placeholder="表示したい文字列を入力" filled @click:clear="textBoxReset" clear-icon="mdi-close-circle" @click:append-outer="sendDisplayRequest" append-outer-icon="mdi-send" clearable solo hide-details hide-no-data>
           </v-autocomplete>
           <v-card class="mx-auto my-12">
             <v-card-title>Settings</v-card-title>
@@ -82,7 +82,7 @@ export default {
   data: () => ({
     histories: [],
     isLoading: false,
-    textbox: '',
+    textbox: 'aaa',
     speed: '',
     types: ['hex', 'rgb', 'hsl', 'hsv'],
     type: 'hex',
@@ -91,6 +91,7 @@ export default {
   methods: {
     sendDisplayRequest: function () {
       let textbox = this.textbox
+      alert(textbox)
       this.axios.post('/api/show/text', {
         text: textbox
       })

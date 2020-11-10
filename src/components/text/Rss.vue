@@ -56,13 +56,16 @@
   <v-container>
     <v-dialog v-model="dialogEdit" width="500">
       <template v-slot:activator="{ on }">
+        <!--
         <v-btn v-on="on">
           Click
         </v-btn>
+        -->
         <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
           <template v-slot:[`item.edit`]="{ item }">
             <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
             <v-icon small>mdi-delete</v-icon>
+            <v-icon small @click="sendDisplayRequest(item)">mdi-play</v-icon>
           </template>
         </v-data-table>
       </template>
@@ -141,8 +144,8 @@ export default {
         .then((res) => alert('登録完了: ' + name))
         .catch((e) => alert(e))
     },
-    sendDisplayRequest: function () {
-      let selected = this.selected
+    sendDisplayRequest: function (item) {
+      let selected = item.name
       // alert(selected)
       this.axios.post('/api/show/feed', {
         name: selected
