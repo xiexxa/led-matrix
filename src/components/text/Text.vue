@@ -1,36 +1,3 @@
-<!--
-<template>
-  <div class="tile is-ancestor">
-    <div class="tile is-vertical">
-      <div class="tile is-parent">
-        <article class="tile is-child notification is-light">
-          <Unit description="テキストを表示します。"/>
-          <div class="tile is-child notification is-info is-light">
-            <p class="is-5">表示する文字を入力</p>
-            <input type="text" class="input" name="textbox" v-model="textbox">
-            <p class="is-7">history</p>
-            <div class="tags are-midium">
-              <p v-show="loading">Loading...</p>
-              <div v-show="!loading" v-bind:class="[{tag: isHover!=his.id}, {'tag is-info': isHover==his.id}]" v-for="his in this.histories" v-bind:key = his.id v-on:click="historyChoose(his.body)" v-on:mouseover="overHistory(his.id)" v-on:mouseleave="leaveHistory(his.id)">{{his.body | truncate}}</div>
-            </div>
-            <nav class="level">
-              <div class="level-left"></div>
-              <div class="level-right">
-                <div class="level-item">
-                  <p class="button is-small is-7" v-on:click="textBoxReset">reset</p>
-                </div>
-                <div class="level-item">
-                  <p class="button is-small is-warning" v-on:click="sendDisplayRequest">Send</p>
-                </div>
-              </div>
-            </nav>
-          </div>
-        </article>
-      </div>
-    </div>
-  </div>
-</template>
--->
 <template>
   <v-container>
     <v-form>
@@ -171,32 +138,6 @@ export default {
       return value.substring(0, length) + ommision
     }
   },
-  /*
-  watch: {
-    speed: function () {
-      console.log(this.speed)
-      this.axios.post('/api/update/speed', {
-        speed: this.speed
-      })
-        .then((res) => console.log('Done' + res.data))
-        .catch((e) => alert(e))
-    },
-    rgb: function () {
-      console.log('rgb: ' + this.rgb.r)
-      console.log('rgb: ' + this.rgb.g)
-      console.log('rgb: ' + this.rgb.b)
-      this.axios.post('/api/update/colors', {
-        colors: this.rgb
-      })
-        .then((res) => console.log('DoneColor: ' + res.data))
-        .catch((e) => alert(e))
-    },
-    search: function (val) {
-      console.log('change')
-      console.log(val)
-    }
-  },
-  */
   computed: {
     color: {
       get () {
