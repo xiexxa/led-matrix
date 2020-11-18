@@ -73,7 +73,7 @@
         <v-card-title>
           <span class="headline">Edit RSS Source</span>
         </v-card-title>
-        <v-card-text v-model="editedFeed.name">
+        <v-card-text>
           <v-container>
             <v-row>
               <v-col>
@@ -179,8 +179,13 @@ export default {
       console.log(item)
     },
     updateFeed: function (item) {
-      console.log('update')
-      console.log(item)
+      this.axios.post('/api/update/feed', {
+        id: item.id,
+        name: item.name,
+        url: item.url
+      })
+        .then((res) => alert('アップデート成功'))
+        .catch((e) => alert(e))
     }
   },
   async mounted () {

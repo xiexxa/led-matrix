@@ -10,6 +10,7 @@ router.post('/show/text', api_controller.index);
 // Update
 router.post('/update/colors', api_controller.colors);
 router.post('/update/speed', api_controller.speed);
+router.post('/update/feed', api_controller.updateFeed);
 
 // Get
 router.get('/get/history', api_controller.history);
@@ -22,5 +23,6 @@ router.post('/add/feed', api_controller.addFeed);
 
 // Test
 router.get('/test', api_controller.test);
+router.get('/gaming', api_controller.gaming);
 
 module.exports = router;

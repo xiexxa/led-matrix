@@ -204,5 +204,49 @@ async function main() {
         console.log(speed);
         res.send('got: ' + speed)
     }
+
+    exports.updateFeed = function (req, res) {
+        console.log(req.body.name);
+        console.log(req.body.url);
+        let id = req.body.id;
+        let name = req.body.name;
+        let url = req.body.url;
+        let sql = 'update feeds set name = ?, url = ? where id = ?';
+        con.query(sql, [name, url, id], async function (error, results, fields) {
+            res.send('done')
+        })
+    }
+
+    exports.gaming = async function (req, res) {
+        let r = 255;
+        let g = 0;
+        let b = 0;
+        while (1) {
+            matrix.clear();
+            matrix.fill(r, g, b)
+            matrix.update();
+            if (r === 255 && b === 0 && g<=255) {
+                g++
+            }
+            if (g === 255 && b === 0 && r>=0) {
+                r--
+            }
+            if (g === 255 && r === 0 && b<=255) {
+                b++
+            }
+            if (b === 255 && r === 0 && g>=0) {
+                g--
+            }
+            if (b === 255 && g === 0 && r<=255) {
+                r++
+            }
+            if (r === 255 && g === 0 && b>=0) {
+                b--
+            }
+            if (r % 3 === 0) {
+                await sleep(1);
+            }
+        }
+    }
 }
 main();
