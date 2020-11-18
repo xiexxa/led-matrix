@@ -56,15 +56,15 @@
   <v-container>
     <v-dialog v-model="dialogEdit" width="500">
       <template v-slot:activator="{ on }">
-        <!--
-        <v-btn v-on="on">
-          Click
-        </v-btn>
-        -->
         <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
           <template v-slot:[`item.edit`]="{ item }">
             <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
             <v-icon small @click="deleteFeed(item)">mdi-delete</v-icon>
+            <v-bottom-sheet v-model="dialogDelete">
+              <v-sheet class="text-center" height="200px">
+                This is sheet
+              </v-sheet>
+            </v-bottom-sheet>
             <v-icon small @click="sendDisplayRequest(item)">mdi-play</v-icon>
           </template>
         </v-data-table>
@@ -139,8 +139,10 @@ export default {
     url: '',
     loading: true,
     dialogEdit: false,
+    dialogDelete: false,
     dialogAdd: false,
-    editedFeed: ''
+    editedFeed: '',
+    deletedFeed: ''
   }),
   methods: {
     rssSourceShow: function () {
@@ -175,8 +177,10 @@ export default {
       this.editedFeed = item
     },
     deleteFeed: function (item) {
-      console.log('Pencil')
+      console.log('Delete')
       console.log(item)
+      this.dialogDelete = true
+      this.deletedFeed = item
     },
     updateFeed: function (item) {
       this.axios.post('/api/update/feed', {
