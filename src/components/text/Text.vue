@@ -59,6 +59,12 @@
                 </v-slider>
               </v-row>
               <v-toolbar-title>
+                <span class="subheading">Loop</span>
+              </v-toolbar-title>
+              <v-row align="center" class="mx-0">
+                <v-switch v-model="loopFlag"></v-switch>
+              </v-row>
+              <v-toolbar-title>
                 <span class="subheading">Color</span>
                 <v-spacer></v-spacer>
               </v-toolbar-title>
@@ -87,7 +93,8 @@ export default {
     types: ['hex', 'rgb', 'hsl', 'hsv'],
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
-    search: ''
+    search: '',
+    loogFlag: ''
   }),
   methods: {
     sendDisplayRequest: function () {

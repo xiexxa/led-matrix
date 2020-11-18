@@ -64,17 +64,32 @@
         <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
           <template v-slot:[`item.edit`]="{ item }">
             <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
-            <v-icon small>mdi-delete</v-icon>
+            <v-icon small @click="deleteFeed(item)">mdi-delete</v-icon>
             <v-icon small @click="sendDisplayRequest(item)">mdi-play</v-icon>
           </template>
         </v-data-table>
       </template>
       <v-card>
-        <v-card-actions v-model="editedFeed.name">
-          <span>Text Text</span>
-          <span>{{editedFeed.name}}</span>
-          <v-btn @click="dialogEdit = false">
-            Close
+        <v-card-title>
+          <span class="headline">Edit RSS Source</span>
+        </v-card-title>
+        <v-card-text v-model="editedFeed.name">
+          <v-container>
+            <v-row>
+              <v-col>
+                <v-text-field label="Name" v-model="editedFeed.name" required></v-text-field>
+                <v-text-field label="URL" v-model="editedFeed.url" hint="https://examplecom/rss.xml" required></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialogEdit = false">
+            Cancel
+          </v-btn>
+          <v-btn color="blue darken-1" @click="updateFeed(editedFeed)" text>
+            Update
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -158,6 +173,14 @@ export default {
       console.log(item)
       this.dialogEdit = true
       this.editedFeed = item
+    },
+    deleteFeed: function (item) {
+      console.log('Pencil')
+      console.log(item)
+    },
+    updateFeed: function (item) {
+      console.log('update')
+      console.log(item)
     }
   },
   async mounted () {
