@@ -217,6 +217,14 @@ async function main() {
         })
     }
 
+    exports.status = function (req, res) {
+        res.json({
+            speed: speed,
+            loop: false,
+            colors: colors
+        });
+    }
+
     exports.gaming = async function (req, res) {
         let r = 255;
         let g = 0;

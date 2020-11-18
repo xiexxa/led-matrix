@@ -16,6 +16,7 @@ router.post('/update/feed', api_controller.updateFeed);
 router.get('/get/history', api_controller.history);
 router.get('/get/phrase', api_controller.phrase);
 router.get('/get/feed', api_controller.feedlist);
+router.get('/get/status', api_controller.status);
 
 // Add
 router.post('/add/phrase', api_controller.addPhrase);
