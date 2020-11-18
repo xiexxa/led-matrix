@@ -48,6 +48,13 @@
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{this.title}}</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-play</v-icon>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-stop</v-icon>
+      </v-btn>
     </v-app-bar>
   </div>
 </template>
