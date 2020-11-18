@@ -94,7 +94,8 @@ export default {
     type: 'hex',
     rgb: { r: 0, g: 0, b: 255 },
     search: '',
-    loogFlag: ''
+    loogFlag: false,
+    status: ''
   }),
   methods: {
     sendDisplayRequest: function () {
@@ -136,6 +137,28 @@ export default {
         console.log(res.status)
         this.histories = res.data.histories
       })
+    await this.axios.get('/api/get/status')
+      .then(res => {
+        console.log(res.data)
+        this.status = res.data
+        console.log('すぴ' + this.status.speed)
+        this.speed = 100 - this.status.speed
+        this.rgb = this.status.colors
+      })
+    this.$watch('speed', function () {
+      this.axios.post('/api/update/speed', {
+        speed: this.speed
+      })
+        .then((res) => console.log('Done' + res.data))
+        .catch((e) => alert(e))
+    })
+    this.$watch('rgb', function () {
+      this.axios.post('/api/update/colors', {
+        colors: this.rgb
+      })
+        .then((res) => console.log('DoneColor: ' + res.data))
+        .catch((e) => alert(e))
+    })
     this.loading = false
   },
   filters: {
@@ -148,6 +171,7 @@ export default {
       return value.substring(0, length) + ommision
     }
   },
+  /*
   watch: {
     speed: function () {
       console.log(this.speed)
@@ -172,6 +196,7 @@ export default {
       console.log(val)
     }
   },
+  */
   computed: {
     color: {
       get () {
