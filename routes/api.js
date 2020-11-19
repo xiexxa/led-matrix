@@ -25,5 +25,6 @@ router.post('/add/feed', api_controller.addFeed);
 // Test
 router.get('/test', api_controller.test);
 router.get('/gaming', api_controller.gaming);
+router.get('/length', api_controller.stringLength);
 
 module.exports = router;

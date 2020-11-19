@@ -4,6 +4,7 @@ const LedMatrix = require("easybotics-rpi-rgb-led-matrix");
 const client = require('cheerio-httpcli');
 const mysql = require('mysql');
 const date = require('date-utils');
+const fs = require('fs');
 let matrix;
 let fontpath;
 
@@ -86,6 +87,24 @@ async function main() {
                 await sleep(33);
             }
         }
+    }
+
+    exports.stringLength = function (req, res) {
+        let text = req.query.text;
+        let code;
+        let result;
+        fs.readFile(path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf', 'utf-8', (err, data) => {
+            if (err)throw err;
+            // console.log(data);
+            code = text.charCodeAt();
+            console.log(code);
+            // res.send(text);
+
+            for (let i=0; i<text.length; i++) {
+                result += (text.charAt(i) + ': ' + text.charCodeAt(i) + '<br>');
+            }
+            res.send(result);
+        });
     }
 
     exports.index = async function (req, res) {
