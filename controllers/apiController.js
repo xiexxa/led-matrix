@@ -154,6 +154,9 @@ async function main() {
         isAvailavle = false;
         while (x+width >= 0) {
             matrix.clear();
+            if (isAvailavle == true) {
+                break;
+            }
             matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
             matrix.update();
             if (pause === false) {
@@ -243,6 +246,9 @@ async function main() {
             isAvailavle = false;
             while (x+tail >= 0) {
                 matrix.clear();
+                if (isAvailavle == true) {
+                    break;
+                }
                 matrix.drawText(x, 0, newsStrings, fontpath, colors.r, colors.g, colors.b);
                 matrix.update();
                 if (pause === false) {
@@ -318,6 +324,12 @@ async function main() {
 
     exports.updatePause = function (req, res) {
         pause = !pause
+        res.send('done')
+    }
+    exports.updateStop = function (req, res) {
+        isAvailavle = true;
+        matrix.clear();
+        matrix.update();
         res.send('done')
     }
 }

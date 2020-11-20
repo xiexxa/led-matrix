@@ -52,7 +52,7 @@
       <v-btn @click="pause" icon>
         <v-icon>mdi-play</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn  @click="stop" icon>
         <v-icon>mdi-stop</v-icon>
       </v-btn>
     </v-app-bar>
@@ -71,6 +71,14 @@ export default {
       console.log('PAUSE')
       this.axios.post('/api/update/pause', {
         pause: true
+      })
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    },
+    stop: function () {
+      console.log('STOP')
+      this.axios.post('/api/update/stop', {
+        stop: true
       })
         .then((res) => console.log(res.data))
         .catch((e) => alert('AAA' + e.response.status))

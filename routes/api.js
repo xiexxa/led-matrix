@@ -12,6 +12,7 @@ router.post('/update/colors', api_controller.colors);
 router.post('/update/speed', api_controller.speed);
 router.post('/update/feed', api_controller.updateFeed);
 router.post('/update/pause', api_controller.updatePause);
+router.post('/update/stop', api_controller.updateStop);
 
 // Get
 router.get('/get/history', api_controller.history);
