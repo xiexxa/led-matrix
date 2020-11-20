@@ -56,7 +56,7 @@
   <v-container>
     <v-dialog v-model="dialogEdit" width="500">
       <template v-slot:activator="{ on }">
-        <v-data-table :headers="headers" :items="feeds" item-key="id" :search="search">
+        <v-data-table :headers="headers" :items="feeds" item-key="id">
           <template v-slot:[`item.edit`]="{ item }">
             <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
             <v-icon small @click="deleteFeed(item)">mdi-delete</v-icon>
