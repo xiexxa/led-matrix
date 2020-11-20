@@ -5,6 +5,7 @@ const client = require('cheerio-httpcli');
 const mysql = require('mysql');
 const date = require('date-utils');
 const fs = require('fs');
+const readline = require('readline');
 let matrix;
 let fontpath;
 
@@ -59,6 +60,54 @@ function interruptRejector (isAvailavle, res) {
     }
 }
 
+async function stringLength (string) {
+    return new Promise((resolve, reject) => {
+        let text = string;
+        let code;
+        let result = 0;
+        let textCode = [];
+        let fontdata;
+        let lnum;
+        let charWidths = [];
+        let dwidthline;
+        fs.readFile(path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf', 'utf-8', (err, data) => {
+            if (err)throw err;
+            // console.log(data);
+            fontdata = data.split('\n');
+            code = text.charCodeAt();
+            // res.send(text);
+    
+            // GETで入力された文字列から1文字ずつ文字コードを取得して、textCode配列に格納する
+            for (let i=0; i<text.length; i++) {
+                code = text.charCodeAt(i);
+                textCode.push(code);
+            }
+            console.log(textCode);
+            // fontdata配列から入力された文字の行番号を取得する
+            for (i=0; i<text.length; i++) {
+                lnum = fontdata.indexOf("ENCODING " + textCode[i]);
+                while (fontdata[lnum].indexOf("DWIDTH ") == -1) {
+                    console.log("行" + lnum + "はマッチしませんでした。");
+                    lnum++;
+                }
+                console.log(lnum);
+                console.log(fontdata[lnum]);
+                dwidthline = fontdata[lnum].split(' ');
+                charWidths.push(dwidthline[1]);
+            }
+            console.log("charWidths:: ");
+            console.log(charWidths);
+            // charWidthsの総和を取得
+            for (i=0; i<charWidths.length; i++) {
+                result += parseInt(charWidths[i], 10);
+            }
+            console.log("result: " + result);
+            console.log("--- ---");
+            resolve(result);
+        });
+    });
+}
+
 async function main() {
     matrix = new LedMatrix(16, 32, 1, 3, 50, 'adafruit-hat' );
     fontpath =  path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf';
@@ -89,31 +138,15 @@ async function main() {
         }
     }
 
-    exports.stringLength = function (req, res) {
-        let text = req.query.text;
-        let code;
-        let result;
-        fs.readFile(path.resolve(__dirname, '..')+'/fonts/'+'ufo.bdf', 'utf-8', (err, data) => {
-            if (err)throw err;
-            // console.log(data);
-            code = text.charCodeAt();
-            console.log(code);
-            // res.send(text);
-
-            for (let i=0; i<text.length; i++) {
-                result += (text.charAt(i) + ': ' + text.charCodeAt(i) + '<br>');
-            }
-            res.send(result);
-        });
-    }
-
     exports.index = async function (req, res) {
         if (interruptRejector(isAvailavle, res) == -1) { 
             return -1;
         }
         let text = req.body.text;
         console.log(text + 'ttt')
-        let width = getTextWidth(text);
+        let width = await stringLength(text);
+        //let width = getTextWidth(text);
+        console.log("Width: " + width);
         let x = matrix.getWidth();
         insertHistory(con, text);
         isAvailavle = false;
@@ -202,7 +235,7 @@ async function main() {
                 newsStrings += title;
             }
             let x = 96;
-            let tail = newsStrings.length * 16;
+            let tail = await stringLength(newsStrings);
             isAvailavle = false;
             while (x+tail >= 0) {
                 matrix.clear();
