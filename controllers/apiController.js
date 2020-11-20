@@ -114,6 +114,7 @@ async function main() {
     let colors = { r:255, g:255, b:255 };
     let speed = 50;
     let isAvailavle = true;
+    let pause = false;
     
     const con = mysql.createConnection({
         host: 'localhost',
@@ -155,7 +156,9 @@ async function main() {
             matrix.clear();
             matrix.drawText(x, 0, text, fontpath, colors.r, colors.g, colors.b);
             matrix.update();
-            x--;
+            if (pause === false) {
+                x--;
+            }
             console.log(x);
             await sleep(speed);
         }
@@ -242,7 +245,9 @@ async function main() {
                 matrix.clear();
                 matrix.drawText(x, 0, newsStrings, fontpath, colors.r, colors.g, colors.b);
                 matrix.update();
-                x--;
+                if (pause === false) {
+                    x--;
+                }
                 console.log(x);
                 await sleep(speed);
             }
@@ -274,7 +279,8 @@ async function main() {
         res.json({
             speed: speed,
             loop: false,
-            colors: colors
+            colors: colors,
+            isAvailavle: isAvailavle
         });
     }
 
@@ -308,6 +314,11 @@ async function main() {
                 await sleep(1);
             }
         }
+    }
+
+    exports.updatePause = function (req, res) {
+        pause = !pause
+        res.send('done')
     }
 }
 main();

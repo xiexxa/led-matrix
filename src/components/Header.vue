@@ -49,7 +49,7 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title>{{this.title}}</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
+      <v-btn @click="pause" icon>
         <v-icon>mdi-play</v-icon>
       </v-btn>
       <v-btn icon>
@@ -65,6 +65,16 @@ export default {
   data: () => ({
     name: 'Header',
     drawer: null
-  })
+  }),
+  methods: {
+    pause: function () {
+      console.log('PAUSE')
+      this.axios.post('/api/update/pause', {
+        pause: true
+      })
+        .then((res) => console.log(res.data))
+        .catch((e) => alert('AAA' + e.response.status))
+    }
+  }
 }
 </script>
