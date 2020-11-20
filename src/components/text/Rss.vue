@@ -108,8 +108,8 @@
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field label="Name" required></v-text-field>
-                <v-text-field label="URL" hint="https://examplecom/rss.xml" required></v-text-field>
+                <v-text-field v-model="name" label="Name" required></v-text-field>
+                <v-text-field v-model="url" label="URL" hint="https://examplecom/rss.xml" required></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -119,7 +119,7 @@
           <v-btn color="blue darken-1" text @click="dialogAdd = false">
             Cancel
           </v-btn>
-          <v-btn color="blue darken-1" text>
+          <v-btn color="blue darken-1" @click="registerNewFeed" text>
             Add
           </v-btn>
         </v-card-actions>
