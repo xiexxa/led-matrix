@@ -66,11 +66,10 @@ export default {
   }),
   methods: {
     sendDisplayRequest: function () {
-      // let textbox = this.textbox
       this.axios.post('/api/show/text', {
         text: this.textbox
       })
-        .then((res) => alert(res.data))
+        .then((res) => console.log(res.data))
         .catch((e) => alert('AAA' + e.response.status))
     },
     textBoxReset: function () {

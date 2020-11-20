@@ -142,6 +142,7 @@ async function main() {
         if (interruptRejector(isAvailavle, res) == -1) { 
             return -1;
         }
+        res.send('text show');
         let text = req.body.text;
         console.log(text + 'ttt')
         let width = await stringLength(text);
