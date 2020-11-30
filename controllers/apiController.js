@@ -241,6 +241,7 @@ async function main() {
             for (title of newsStrings) {
                 newsStrings += title;
             }
+            res.send('got news string.')
             let x = 96;
             let tail = await stringLength(newsStrings);
             isAvailavle = false;
