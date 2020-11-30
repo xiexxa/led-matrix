@@ -61,10 +61,6 @@
 <template>
   <v-container>
     <v-data-table :headers="headers" :items="phrases" item-key="id" :search="search">
-      <template v-slot:top>
-        <v-icon small>mdi-pencil</v-icon>
-        <v-text-field></v-text-field>
-      </template>
     </v-data-table>
     <v-btn fab color="pink" dark accent fixed right bottom>
       <v-icon>mdi-plus</v-icon>
