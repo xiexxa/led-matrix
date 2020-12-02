@@ -24,6 +24,9 @@ router.get('/get/status', api_controller.status);
 router.post('/add/phrase', api_controller.addPhrase);
 router.post('/add/feed', api_controller.addFeed);
 
+// Delete
+router.post('/delete/phrase', api_controller.deletePhrase);
+
 // Test
 router.get('/test', api_controller.test);
 router.get('/gaming', api_controller.gaming);

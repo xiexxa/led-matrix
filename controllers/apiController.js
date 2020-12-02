@@ -333,5 +333,13 @@ async function main() {
         matrix.update();
         res.send('done')
     }
+
+    exports.deletePhrase = function (req, res) {
+        console.log(req.body.id)
+        let sql = 'delete from phrases where id = ?';
+        con.query(sql, [req.body.id], async function (error, results, fields) {
+            res.send('done')
+        })
+    }
 }
 main();

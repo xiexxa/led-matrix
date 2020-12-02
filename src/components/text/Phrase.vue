@@ -76,7 +76,7 @@
               <td>{{ item.created_at }}</td>
               <td>
                 <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
-                <v-icon small @click="editFeed(item)">mdi-delete</v-icon>
+                <v-icon small @click="deletePhrase(item.id)">mdi-delete</v-icon>
                 <v-icon small @click="sendDisplayRequest(item.body)">mdi-play</v-icon>
               </td>
             </tr>
@@ -146,6 +146,14 @@ export default {
     sendDisplayRequest: function (text) {
       this.axios.post('/api/show/text', {
         text: text
+      })
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
+    },
+    deletePhrase: function (id) {
+      console.log(id)
+      this.axios.post('/api/delete/phrase', {
+        id: id
       })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))
