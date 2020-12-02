@@ -60,8 +60,31 @@
 
 <template>
   <v-container>
-    <v-data-table :headers="headers" :items="phrases" item-key="id" :search="search">
-    </v-data-table>
+    <template>
+      <v-simple-table>
+        <template v-slot:default>
+          <thead>
+            <tr>
+              <th class="text-center">Name</th>
+              <th class="text-center">created</th>
+              <th class="text-center">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in phrases" :key="item.body">
+              <td>{{ item.body }}</td>
+              <td>{{ item.created_at }}</td>
+              <td>
+                <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
+                <v-icon small @click="editFeed(item)">mdi-delete</v-icon>
+                <v-icon small @click="sendDisplayRequest(item.body)">mdi-play</v-icon>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </template>
+    <!-- -->
     <v-btn fab color="pink" dark accent fixed right bottom>
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -135,6 +158,7 @@ export default {
         console.log(res.data.phrases)
         console.log(res.status)
         this.phrases = res.data.phrases
+        console.log(this.phrases)
       })
     this.loading = false
   },

@@ -185,7 +185,7 @@ async function main() {
     }
 
     exports.phrase = function(req, res) {
-        let sql = 'select id, body from phrases order by id desc';
+        let sql = 'select id, body, created_at from phrases order by id desc';
         con.query(sql, function (error, results, fields) {
             res.json({
                 phrases: results
