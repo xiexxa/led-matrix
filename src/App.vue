@@ -21,6 +21,19 @@ export default {
   mounted () {
     console.log(this.$route.path)
     this.title = this.$route.path
+
+    let routeInstance = this.$route
+    this.createTitle(routeInstance)
+  },
+  methods: {
+    createTitle: function (routeInstance) {
+      if (routeInstance.meta.title) {
+        let title = routeInstance.meta.title + ' | led-matrix'
+        document.title = title
+      } else {
+        document.title = 'led-matrix'
+      }
+    }
   }
 }
 </script>

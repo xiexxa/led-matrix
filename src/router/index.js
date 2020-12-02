@@ -18,14 +18,51 @@ Vue.use(VueAxios, axios)
 
 export default new Router({
   routes: [
-    { path: '/', component: Index },
-
-    { path: '/text', component: Text },
-    { path: '/text/phrase', component: Phrase },
-    { path: '/text/rss', component: Rss },
-
-    { path: '/image', component: Image },
-    { path: '/video', component: Video },
-    { path: '*', component: NotFound }
+    {
+      path: '/',
+      component: Index,
+      meta: {
+        title: 'title'
+      }
+    },
+    {
+      path: '/text',
+      component: Text,
+      meta: {
+        title: 'Text'
+      }
+    },
+    {
+      path: '/text/phrase',
+      component: Phrase,
+      meta: {
+        title: 'Phrase'
+      }
+    },
+    {
+      path: '/text/rss',
+      component: Rss,
+      meta: {
+        title: 'RSS'
+      }
+    },
+    {
+      path: '/image',
+      component: Image,
+      meta: {
+        title: 'Image'
+      }
+    },
+    {
+      path: '/video',
+      component: Video,
+      meta: {
+        title: 'Video'
+      }
+    },
+    {
+      path: '*',
+      component: NotFound
+    }
   ]
 })
