@@ -75,16 +75,39 @@
               <td>{{ item.body }}</td>
               <td>{{ item.created_at }}</td>
               <td>
-                <v-icon small @click="editFeed(item)">mdi-pencil</v-icon>
-                <v-icon small @click="deletePhrase(item.id)">mdi-delete</v-icon>
-                <v-icon small @click="sendDisplayRequest(item.body)">mdi-play</v-icon>
+                <!-- 編集 -->
+                <template>
+                  <div class="text-center">
+                    <v-dialog v-model="dialogEdit" width="500">
+                      <template v-slot:activator="{ on }">
+                        <v-icon small @click="editPhrase(item)">mdi-pencil</v-icon>
+                        <v-icon small @click="sendDisplayRequest(item.body)">mdi-play</v-icon>
+                        <v-icon small @click="deletePhrase(item.id)">mdi-delete</v-icon>
+                      </template>
+                      <v-card>
+                        <v-card-title class="headline gray lighten-2">
+                          編集
+                        </v-card-title>
+                        <v-card-text>
+                          {{editBody}}
+                          <v-text-field label="編集" v-model="editBody"></v-text-field>
+                        </v-card-text>
+                        <v-divider></v-divider>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="primary" @click="editPhrase(item)" text>Cancel</v-btn>
+                          <v-btn color="primary" @click="updatePhrase(item, editBody)" text>Update</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                  </div>
+                </template>
               </td>
             </tr>
           </tbody>
         </template>
       </v-simple-table>
     </template>
-    <!-- -->
     <v-btn fab color="pink" dark accent fixed right bottom>
       <v-icon>mdi-plus</v-icon>
     </v-btn>
@@ -129,7 +152,9 @@ export default {
     phrases: [],
     search: '',
     loading: true,
-    dialogAdd: false
+    dialogAdd: false,
+    dialogEdit: false,
+    editBody: ''
   }),
   methods: {
     phraseShow: function () {
@@ -154,6 +179,22 @@ export default {
       console.log(id)
       this.axios.post('/api/delete/phrase', {
         id: id
+      })
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
+    },
+    editPhrase: function (item) {
+      console.log(item)
+      this.dialogEdit = !this.dialogEdit
+      this.editBody = item.body
+    },
+    updatePhrase: function (item, editBody) {
+      console.log(item)
+      console.log(editBody)
+      item.body = editBody
+      console.log(item)
+      this.axios.post('/api/update/phrase', {
+        item: item
       })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))

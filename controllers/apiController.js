@@ -341,5 +341,15 @@ async function main() {
             res.send('done')
         })
     }
+
+    exports.updatePhrase = function (req, res) {
+        console.log(req.body.item.body)
+        let body = req.body.item.body
+        let id = req.body.item.id
+        let sql = 'update phrases set body = ?, updated_at = ? where id = ?';
+        con.query(sql, [body, getNowDatetime(), id], async function (error, results, fields) {
+            res.send('updated')
+        })
+    }
 }
 main();
