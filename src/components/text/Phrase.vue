@@ -79,7 +79,7 @@
                 <template>
                   <div class="text-center">
                     <v-dialog v-model="dialogEdit" width="500">
-                      <template v-slot:activator="{ on }">
+                      <template v-slot:activator="{  }">
                         <v-icon small @click="editPhrase(item)">mdi-pencil</v-icon>
                         <v-icon small @click="sendDisplayRequest(item.body)">mdi-play</v-icon>
                         <v-icon small @click="deletePhrase(item.id)">mdi-delete</v-icon>
