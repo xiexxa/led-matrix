@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     hello {{vue}}
+    <v-btn dark>Button</v-btn>
   </div>
 </template>
 
