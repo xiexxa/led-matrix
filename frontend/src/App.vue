@@ -1,24 +1,30 @@
 <template>
-  <div class="app">
-    hello {{vue}}
-    <v-btn dark>Button</v-btn>
+  <div id="app">
+    <img src="./assets/logo.png">
+    <router-link to='/page1'>page1</router-link>
+    <router-link to='/page2'>page2</router-link>
+    <router-link to='/'>top</router-link>
+    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  data () {
-    return {
-      vue: 'This is vue'
-    }
+  metaInfo: {
+    title: 'Tti',
+    titleTemplate: '%s - led-matrix'
   }
 }
 </script>
 
-<style scoped>
-.app {
-  font-size: 40px;
-  color: blue;
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
