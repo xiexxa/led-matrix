@@ -81,7 +81,7 @@ export default {
   methods: {
     sendDisplayRequest: function () {
       this.axios.post('/api/show/text', {
-        //text: this.textbox
+        // text: this.textbox
         text: this.search
       })
         .then((res) => console.log(res.data))
