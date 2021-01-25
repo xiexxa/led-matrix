@@ -150,6 +150,7 @@ async function main() {
         //let width = getTextWidth(text);
         console.log("Width: " + width);
         let x = matrix.getWidth();
+        let xorig = x
         insertHistory(con, text);
         isAvailavle = false;
         while (x+width >= 0) {
@@ -164,6 +165,9 @@ async function main() {
             }
             console.log(x);
             await sleep(speed);
+            if (x+width < 0) {
+                x = xorig
+            }
         }
         isAvailavle = true;
         console.log('done: '+text);
