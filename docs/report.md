@@ -89,6 +89,19 @@ Raspberry PiにはUSBACアダプタから供給しているmicroUSBから、RGB 
 
 5. セットアップ
 本章ではRaspberry　PiへのOSのセットアップから本研究テーマで作成したソフトウェアの導入までを解説する。  
+5.1 Raspberry Pi OSのインストール  
+Raspberry Pi OSのインストール手順を解説する。  
+今回はRaspberry Pi Imagerを使用する。  
+5.1.1 Raspberry Pi Imagerのインストール  
+Raspberry Pi FoundationのWebサイト(https://www.raspberrypi.org/software/)からインストーラをダウンロードする。  
+インストーラに従い、インストールを行う。
+5.1.2 SDカードへのOSの書き込み  
+Raspberry Pi Imagerのインストールが完了したら、インストールするOSの種類を選択する。  
+以下画面において、Oparation Systemの項目でRaspberry Pi OS(32bit)を選択する。  
+Choose SD cardでは書き込みたいSDカードを選択する。  
+
+5.2 Raspberry Pi OSの起動  
+
 
 
 6. 操作方法
