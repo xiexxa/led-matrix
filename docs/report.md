@@ -68,6 +68,8 @@ BDF(Bitmap Distribution Format)フォントで作成されたフォントであ�
 その他、本システムに使用しているNode.jsのプラグインに関しては、プロジェクトディレクトリ内のpackage.jsonを参照されたい。  
 4. 配線  
 本システムのハードウェアの配線について説明する。  
+以下の図Xは配線の概略図である。  
+![代替テキスト](./img/hw_map.png)
 4.1 RGB Matrix HAT + RTCの接続  
 本システムはRaspberry Piを中心にすべてのパーツが接続されている。  
 
