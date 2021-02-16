@@ -160,8 +160,8 @@ drawText関数によってテキストの表示をした後、マトリクスLED
     |  ----  |  ----  |
     |  トップ  |  /  |
     |  テキスト  |  /text  |
-    |  定型文  |  /phrase  |
-    |  RSS  |  /rss  |
+    |  定型文  |  /text/phrase  |
+    |  RSS  |  /text/rss  |
 
 10. 課題
 - stringLength実行時間長すぎ問題
