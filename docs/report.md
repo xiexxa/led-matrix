@@ -124,15 +124,15 @@ Unicodeの文字コード対応表から確認したい文字を1文字ずつ文
 9. Webシステムの構築
 Node.js、Vue.js、MariaDBがどのように強調して動作しているのか書く。RSSの取得方法やVueRouter、Vuetifyについても記述。リアルタイム操作を実現するAjaxについても書く。
 
-8. 課題
+10. 課題
 
-9. おわりに
+11. おわりに
 
-10. 謝辞
+12. 謝辞
 
-11. 参考文献
+13. 参考文献
 Adafruit RGB Matrix HAT + RTC for Raspberry Pi - Mini Kit, Adafruit, https://www.adafruit.com/product/2345.
 D.6 BDF形式, 富士通, https://software.fujitsu.com/jp/manual/manualfiles/m200002/b1wd0741/14z200/b0741-d-06-00.html.
 
-12. 書くこと  
+14. 書くこと  
 - HEX to BinaryのBDFフォントデコーダを載せる。
