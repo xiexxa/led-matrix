@@ -202,6 +202,24 @@ http://<Raspberry PiのIPアドレス>/text/rssにアクセスすることで利
     |  定型文  |  /text/phrase  |
     |  RSS  |  /text/rss  |
 
+11. システムのビルドと開発  
+11.1 開発用サーバ  
+Vue.jsの開発は、JavaScriptモジュールバンドラーのWebpackの関連機能であるwebpack-dev-serverを主に用いて開発した。  
+これはWebサーバを別で用意することなく開発ようにHTMLを提供するサーバを構築するソフトウェアである。ライブリローディング機能により、ソースコードに変更が加えられるとそれを検知して自動でWebブラウザを再読み込みさせる機能を持つ。  
+プロジェクトディレクトリ内のpackage.json内のscriptsにあるdevの要素にwebpack-dev-server --inline --progress --config build/webpack.dev.conf.jsを記述しているため、開発用サーバは`$ npm run dev`によって起動できる。  
+開発用サーバが起動している間はhttp://<Raspberry PiのIPアドレス>:8080/で本システムが待ち受けている。  
+この8080番ポートはconfig/index.jsのdev内のportで定義されているものである。  
+11.2 ビルド  
+Vue.jsで開発したシステムは本番環境へデプロイできるようにビルドする必要がある。  
+ビルドはpackage.json内のscriptsにあるbuildの要素にnode build/build.jsを記述しているため、`$ npm run build`でビルドが実行できる。  
+ビルドされて出力されるファイルは、dist/内に保存される。  
+11.3 本番環境  
+ビルド後生成されたファイルの配信とAPIサーバの起動スクリプトはserver.jsに記述されている。  
+フロントエンドに関しては、11.2でビルドしたファイルへのルーティングとそのファイルを80番ポートで配信する設定を記述している。  
+APIサーバでは、3000番ポートでサーバを起動するように待ち受けている。  
+しかし、フロントエンドを80番ポートで配信しているので、別のポートでAPIサーバを起動するとポートを変換しなければAPIサーバへアクセスできない。  
+そのために、config/index.js内のdevにproxyTableを以下のように追記して、
+
 10. 課題
 - stringLength実行時間長すぎ問題
 - APIサーバの設計の知識の不足。RESTじゃない。  
@@ -213,6 +231,15 @@ http://<Raspberry PiのIPアドレス>/text/rssにアクセスすることで利
 これは入力された文字列から1文字ずつUFOフォントの文字幅を取得する際、毎回フォントファイルへアクセスし、シーケンシャルに対象文字のSTARTCHAR行を探索しているためである。  
 対策として、UFOフォントで半角相当(8ドット)の文字と全角相当(16ドット)の文字をフォントファイルへアクセスすることなく識別することが考えられるが、UFOは絵文字を半角としている点もあり半角/全角の識別は一筋縄では行かない。  
 **stringLengthで処理にかかる時間を測定した結果を記載する**  
+丸高が妊娠 柿谷2児のパパに
+ワクチン接種 日本はG7で最後
+手術15回 ダウン症モデルの夢
+京王プラザ 30泊21万円プラン
+立花氏にNHK受信料支払い命令
+森氏の後任 候補者一本化か
+自民・白須賀氏 離党届を提出
+東京で378人の感染確認
+クライアントから送信のリクエストを送信して、実際にLEDパネルに表示されるまで14.44[s]要した。
 
 - APIサーバの設計  
 本システムのAPIサーバの処理のルーティングはroutes/api.jsに記述している。  
@@ -227,7 +254,12 @@ GET、POST、PUT、DELETEなどのHTTPのメソッドを使い分けてAPIの構
 13. 参考文献
 Adafruit RGB Matrix HAT + RTC for Raspberry Pi - Mini Kit, Adafruit, https://www.adafruit.com/product/2345.  
 D.6 BDF形式, 富士通, https://software.fujitsu.com/jp/manual/manualfiles/m200002/b1wd0741/14z200/b0741-d-06-00.html.  
-vue.jsのcreatedとmountedの違いを目で見て理解, REFFECT, https://reffect.co.jp/vue/vue-js-created-mounted-diffrence
+vue.jsのcreatedとmountedの違いを目で見て理解, REFFECT, https://reffect.co.jp/vue/vue-js-created-mounted-diffrence.
+RESTful APIとは何なのか, NagaokaKenichi, https://qiita.com/NagaokaKenichi/items/0647c30ef596cedf4bf2.
+Vueのwatchプロパティの書き方・使い方について解説, ELOOP, https://www.e-loop.jp/knowledges/2/.
+cheerio-httpcli - Node.js用WEBスクレイピングモジュール, ktty1220, https://www.npmjs.com/package/cheerio-httpcli.
 14. 書くこと  
 - HEX to BinaryのBDFフォントデコーダを載せる。
 - 開発用サーバの使い方、本番用ビルドの方法なども記載。foreverなども。
+- sleep関数の実装 
+- 定型文やRSS機能の部分もバック、フロントエンドにしっかりと分類した記述にリライトするかもしれない。  
