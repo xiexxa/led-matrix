@@ -27,6 +27,7 @@ router.post('/add/feed', api_controller.addFeed);
 
 // Delete
 router.post('/delete/phrase', api_controller.deletePhrase);
+router.post('/delete/feed', api_controller.deleteFeed);
 
 // Test
 router.get('/test', api_controller.test);

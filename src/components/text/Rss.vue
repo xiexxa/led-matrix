@@ -176,11 +176,22 @@ export default {
       this.dialogEdit = true
       this.editedFeed = item
     },
+    /*
     deleteFeed: function (item) {
       console.log('Delete')
       console.log(item)
       this.dialogDelete = true
       this.deletedFeed = item
+    },
+    */
+    deleteFeed: function (id) {
+      let feedid = id.id
+      console.log(feedid)
+      this.axios.post('/api/delete/feed', {
+        id: id
+      })
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
     },
     updateFeed: function (item) {
       this.axios.post('/api/update/feed', {

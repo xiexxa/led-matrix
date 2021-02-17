@@ -346,6 +346,14 @@ async function main() {
         })
     }
 
+    exports.deleteFeed = function (req, res) {
+        console.log(req.body.id.id)
+        let sql = 'delete from feeds where id = ?';
+        con.query(sql, [req.body.id.id], async function (error, results, fields) {
+            res.send('done')
+        })
+    }
+
     exports.updatePhrase = function (req, res) {
         console.log(req.body.item.body)
         let body = req.body.item.body
