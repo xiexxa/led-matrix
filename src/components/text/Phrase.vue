@@ -125,7 +125,7 @@
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field label="Phrase" required></v-text-field>
+                <v-text-field label="Phrase" v-model="textPhrase" required></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -135,7 +135,7 @@
           <v-btn color="blue darken-1" text @click="dialogAdd = false">
             Cancel
           </v-btn>
-          <v-btn color="blue darken-1" text>
+          <v-btn color="blue darken-1" @click="addPhrase(textPhrase)" text>
             Add
           </v-btn>
         </v-card-actions>
@@ -195,6 +195,14 @@ export default {
       console.log(item)
       this.axios.post('/api/update/phrase', {
         item: item
+      })
+        .then((res) => alert(res.data))
+        .catch((e) => alert(e))
+    },
+    addPhrase: function (text) {
+      console.log(text)
+      this.axios.post('/api/add/phrase', {
+        text: text
       })
         .then((res) => alert(res.data))
         .catch((e) => alert(e))

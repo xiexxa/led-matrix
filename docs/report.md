@@ -166,6 +166,7 @@ SpeedとColorのそれぞれの値は履歴と同様にmounted内に記述して
 また、watchプロパティで常にスピードと色の値を監視し、スライダやカラーピッカーの値が変更されるたびにAPIサーバに変更のリクエストを送信している。  
 
 9.2 定型文  
+9.1のテキスト表示機能
 9.3 RSS  
 
 10. 画面一覧  
@@ -200,9 +201,9 @@ GET、POST、PUT、DELETEなどのHTTPのメソッドを使い分けてAPIの構
 12. 謝辞
 
 13. 参考文献
-Adafruit RGB Matrix HAT + RTC for Raspberry Pi - Mini Kit, Adafruit, https://www.adafruit.com/product/2345.
-D.6 BDF形式, 富士通, https://software.fujitsu.com/jp/manual/manualfiles/m200002/b1wd0741/14z200/b0741-d-06-00.html.
-
+Adafruit RGB Matrix HAT + RTC for Raspberry Pi - Mini Kit, Adafruit, https://www.adafruit.com/product/2345.  
+D.6 BDF形式, 富士通, https://software.fujitsu.com/jp/manual/manualfiles/m200002/b1wd0741/14z200/b0741-d-06-00.html.  
+vue.jsのcreatedとmountedの違いを目で見て理解, REFFECT, https://reffect.co.jp/vue/vue-js-created-mounted-diffrence
 14. 書くこと  
 - HEX to BinaryのBDFフォントデコーダを載せる。
 - 開発用サーバの使い方、本番用ビルドの方法なども記載。foreverなども。
