@@ -219,6 +219,8 @@ Vue.jsで開発したシステムは本番環境へデプロイできるよう�
 APIサーバでは、3000番ポートでサーバを起動するように待ち受けている。  
 しかし、フロントエンドを80番ポートで配信しているので、別のポートでAPIサーバを起動するとポートを変換しなければAPIサーバへアクセスできない。  
 そのために、config/index.js内のdevにproxyTableを以下のように追記して、
+11.4 永続化  
+
 
 10. 課題
 - stringLength実行時間長すぎ問題
@@ -247,18 +249,31 @@ APIサーバでは、3000番ポートでサーバを起動するように待ち�
 現状でも問題はないが、本来であればRESTful APIのルールに則ってAPIを設計したほうが開発に規律が生まれる。  
 GET、POST、PUT、DELETEなどのHTTPのメソッドを使い分けてAPIの構築を行うべきであった。  
 
-11. おわりに
+11. おわりに  
+約1年間の研究期間のうち、前期は遠隔授業で自宅での研究が続いた。幸いにも在宅でも進めやすいテーマだったが、序盤はNode.jsの取り扱いにも苦戦したり、Node.jsの役割を把握していなかったために様々な言語やプラットフォームを右往左往しながら活動したため苦労した。  
+しかしながら、後期以降はNode.js+Vue.jsというJavaScriptを基盤とした開発環境が確立し、JavaScriptでの開発スキルが大いに成長したと感じたほか、モダンなWeb開発環境に触れることが出来た。  
+フロントエンドの処理に詰めの甘さや画像や動画の再生機能の未実装が悔やまれるが、卒業研究としてある程度の規模のシステムの稼働まで実現することが出来たことには満足している。  
 
 12. 謝辞
 
 13. 参考文献
 Adafruit RGB Matrix HAT + RTC for Raspberry Pi - Mini Kit, Adafruit, https://www.adafruit.com/product/2345.  
+
 D.6 BDF形式, 富士通, https://software.fujitsu.com/jp/manual/manualfiles/m200002/b1wd0741/14z200/b0741-d-06-00.html.  
+
 vue.jsのcreatedとmountedの違いを目で見て理解, REFFECT, https://reffect.co.jp/vue/vue-js-created-mounted-diffrence.
+
 RESTful APIとは何なのか, NagaokaKenichi, https://qiita.com/NagaokaKenichi/items/0647c30ef596cedf4bf2.
+
 Vueのwatchプロパティの書き方・使い方について解説, ELOOP, https://www.e-loop.jp/knowledges/2/.
+
 cheerio-httpcli - Node.js用WEBスクレイピングモジュール, ktty1220, https://www.npmjs.com/package/cheerio-httpcli.
+
 Unicode対応 文字コード表, ASH multimedia lab., http://ash.jp/code/unitbl21.htm.
+Raspberry Piでプログラムを自動起動する5種類の方法を比較・解説, karaage0703, https://qiita.com/karaage0703/items/ed18f318a1775b28eab4.
+
+【Node.js】foreverコマンドの基本的な使い方まとめ, taneyats, https://www.taneyats.com/entry/nodejs-forever.
+
 14. 書くこと  
 - HEX to BinaryのBDFフォントデコーダを載せる。
 - 開発用サーバの使い方、本番用ビルドの方法なども記載。foreverなども。
