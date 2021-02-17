@@ -258,6 +258,7 @@ vue.jsのcreatedとmountedの違いを目で見て理解, REFFECT, https://reffe
 RESTful APIとは何なのか, NagaokaKenichi, https://qiita.com/NagaokaKenichi/items/0647c30ef596cedf4bf2.
 Vueのwatchプロパティの書き方・使い方について解説, ELOOP, https://www.e-loop.jp/knowledges/2/.
 cheerio-httpcli - Node.js用WEBスクレイピングモジュール, ktty1220, https://www.npmjs.com/package/cheerio-httpcli.
+Unicode対応 文字コード表, ASH multimedia lab., http://ash.jp/code/unitbl21.htm.
 14. 書くこと  
 - HEX to BinaryのBDFフォントデコーダを載せる。
 - 開発用サーバの使い方、本番用ビルドの方法なども記載。foreverなども。
