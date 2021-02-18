@@ -139,6 +139,19 @@ export PATH=$N_PREFIX/bin:$PATH
 3. MySQLのインストール  
 WebアプリケーションにMySQLを使用している。これをインストールする。  
 `$ sudo apt install mariadb-server`  
+インストールが完了したら、MySQLのセットアップを行う。  
+`$ sudo /usr/bin/mysql_secure_installation`を実行し、セットアップウィザードに従う。  
+ENter current password for root (enter for none)と表示されるので、Enterで次へ進む。  
+Set root password?と聞かれるのでyでRootのパスワードを設定する。  
+MySQLのrootパスワードを設定する。  
+Remove anonymous users?と聞かれるので、yで匿名ユーザを削除する。  
+Disallow root login remotely?と聞かれるので、yでEnterする。  
+Remove test database and access to it?と聞かれるので、yでEnterする。  
+Reload privilege tables now?と聞かれるのでyでEnterする。  
+以上でMySQLの初期設定が完了する。  
+次にWebアプリケーションからアクセスするMySQLのユーザを作成する。  
+`$ sudo mariadb`でmariaDBにログインする。  
+
 3. led-matrixの依存プラグインインストール  
 led-matrixは複数のNode.jsモジュールに依存して動作している。  
 これらの依存関係を解決するために、次のコマンドを実行する。  
@@ -147,6 +160,8 @@ led-matrixは複数のNode.jsモジュールに依存して動作している。
 この際、chromedriverが32bitOSに対応していない等のエラーが発生する場合は以下のコマンドを実行してエラーを解消する。  
 `$ rm -rf node_modules/; rm package-lock.json`  
 削除が完了したら、再度`$ sudo npm install`を実行する。  
+easybotics-rpi-rgb-led-matrixがないといわれるので、`$ npm i easybotics-rpi-rgb-led-matrix`でインストールする。  
+インストールが完了したら、`$ node server.js`でバックエンドのスクリプトを実行する。
 
 10. 参考文献  
 Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。
