@@ -115,10 +115,7 @@ pi@raspberrypiのプロンプトが出て接続が完了する。
 SSH接続したRaspberry Piのターミナルで作業する。 
 0. aptのアップデート  
 `$ sudo apt update`でaptをアップデートする。  
-1. led-matrixリポジトリのダウンロード  
-GitHubからled-matrixのリポジトリをダウンロードする。  
-ターミナルで`$ cd ~`を実行し、ホームディレクトリに移動した後、`$ git clone https://github.com/xiexxa/led-matrix.git`を実行してホームディレクトリ直下にプロジェクトディレクトリを保存する。  
-2. Node.jsのインストール  
+1. Node.jsのインストール  
 Raspberry PiのNode.jsをインストールする。  
 `$ sudo apt install -y nodejs npm`を実行し、Node.jsとnpmをインストールする。  
 `$ node -v`を実行し、Node.jsのバージョンを確認する。  
@@ -136,6 +133,10 @@ export PATH=$N_PREFIX/bin:$PATH
 以上の作業を終えて、Node.jsのバージョンが変更されているか確認する。  
 `$ node -v`を実行して、`v12.18.3`が表示されたらバージョン変更が完了している。  
 `$ cd`を実行して、ホームディレクトリに戻る。  
+2. led-matrixリポジトリのダウンロード  
+GitHubからled-matrixのリポジトリをダウンロードする。  
+ターミナルで`$ cd ~`を実行し、ホームディレクトリに移動した後、`$ git clone https://github.com/xiexxa/led-matrix.git`を実行してホームディレクトリ直下にプロジェクトディレクトリを保存する。  
+
 3. MySQLのインストール  
 WebアプリケーションにMySQLを使用している。これをインストールする。  
 `$ sudo apt install mariadb-server`  
@@ -182,4 +183,5 @@ easybotics-rpi-rgb-led-matrixがないといわれるので、`$ npm i easybotic
 
 10. 参考文献  
 Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。  
-【本番リリース】Node.jsサーバ接続方法【リバースプロキシ】、タクマ、https://suwaru.tokyo/%E3%80%90%E6%9C%AC%E7%95%AA%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%91node-js%E3%82%B5%E3%83%BC%E3%83%90%E6%8E%A5%E7%B6%9A%E6%96%B9%E6%B3%95%E3%80%90%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97/
+【本番リリース】Node.jsサーバ接続方法【リバースプロキシ】、 タクマ、https://suwaru.tokyo/%E3%80%90%E6%9C%AC%E7%95%AA%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%91node-js%E3%82%B5%E3%83%BC%E3%83%90%E6%8E%A5%E7%B6%9A%E6%96%B9%E6%B3%95%E3%80%90%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97/。
+LEDドットマトリクスパネル HUB75規格について調べてみた、onokatio、https://qiita.com/onokatio/items/1b99ae9475b6a9fc2f15。
