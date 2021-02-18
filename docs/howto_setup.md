@@ -91,3 +91,21 @@ ZZを押して保存してviを終了する。
 IPアドレスが固定できているか確認するために、`$ ifconfig`を実行する。  
 以下のように出力が変わっていたらIPアドレスの固定に成功している。  
 **ここにifconfig_static.txtの内容を挿入する**  
+
+2. SSHの設定  
+Raspberry PiにSSHサーバを建てて、以後セットアップはすべてクライアントから行えるようにする。  
+- Raspberry Pi側の操作  
+画面左上のRaspberry Piアイコンをクリックし、メニューを展開した先の、設定>Raspberry Piの設定を選択する。  
+Raspberry Piの設定のインターフェイスタブを選択し、SSHを有効にする。  
+SSHを有効に設定した画面が以下の図Xである。  
+![](./img/howto/raspberrypi_settings_ssh.png)  
+有効にしたらOKを押してウィンドウを閉じる。  
+- クライアント側の操作  
+クライアントはWindows、macOS、LinuxなどSSHが使える環境であれば何でも良い。  
+**ここにWindowsでSSHクライアントを使えるようにする手順を書く**  
+ここでは、WSL上のUbuntuからSSH接続する手順を示す。  
+WSLのターミナルを開き、`$ ssh pi@172.19.210.25`を実行してRaspberry Piに接続する。  
+Are you sure you want to continue connectingと尋ねられるので、yesと入力する。  
+パスワードを尋ねられるので、設定したパスワードを入力する。  
+pi@raspberrypiのプロンプトが出て接続が完了する。  
+以後Raspberry Piの設定はSSHを介して行うのでRaspberry Piからディスプレイやキーボード、マウスは外しても構わない。  
