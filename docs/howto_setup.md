@@ -181,7 +181,17 @@ easybotics-rpi-rgb-led-matrixがないといわれるので、`$ npm i easybotic
 フロントエンド機能のスクリプトをビルドする必要がある。  
 `$ cd ~/led-matrix`でled-matrixに移動した後、`$ npm run build`を実行する。  
 
+5. 配線  
+
+6. 使用方法  
+
+7. トラブルシューティング  
+
 10. 参考文献  
-Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。  
+Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。 
+
 【本番リリース】Node.jsサーバ接続方法【リバースプロキシ】、 タクマ、https://suwaru.tokyo/%E3%80%90%E6%9C%AC%E7%95%AA%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%91node-js%E3%82%B5%E3%83%BC%E3%83%90%E6%8E%A5%E7%B6%9A%E6%96%B9%E6%B3%95%E3%80%90%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97/。
+
 LEDドットマトリクスパネル HUB75規格について調べてみた、onokatio、https://qiita.com/onokatio/items/1b99ae9475b6a9fc2f15。
+
+【Node.js】foreverコマンドの基本的な使い方まとめ, taneyats, https://www.taneyats.com/entry/nodejs-forever.
