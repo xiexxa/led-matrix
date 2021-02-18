@@ -151,6 +151,19 @@ Reload privilege tables now?と聞かれるのでyでEnterする。
 以上でMySQLの初期設定が完了する。  
 次にWebアプリケーションからアクセスするMySQLのユーザを作成する。  
 `$ sudo mariadb`でmariaDBにログインする。  
+`create user eisuke identified by 'password'`を実行し、eisukeユーザをパスワードをpasswordとして作成する。  
+`exit`でログアウトする。  
+次に作成したユーザでログインできるか確認する。 
+`$ mariadb -u eisuke -p`を実行し、パスワードはユーザ作成時に設定したパスワードを入力する。  
+ログインできることが確認できたら、`exit`でログアウトする。  
+Webアプリケーション用のデータベースとテーブルを作成する。  
+`$ sudo mariadb`でDBにログインし、`create database testdb;`を実行する。  
+`grant all on *.* to 'eisuke'@'%';`を実行してeisukeユーザにすべての権限を付与する。  
+`$ cd ~/led-matrix/sql`でSQLファイルのあるディレクトリに移動し、`$ mariadb testdb -u eisuke -p < init.sql`を実行してSQLファイルを元にDBを構築する。  
+DBの構成が正しく出来ているか確認するために、mariaDBにログインする。  
+`$ maridb -u eisuke -p`でログインしたあと、`use testdb;`でDBをtestdbに変更する。  
+`show tables;`で作成済みテーブル一覧を確認し、以下のようになっていればDBの設定は完了している。  
+**ここにsql.txtの内容を書く**  
 
 3. led-matrixの依存プラグインインストール  
 led-matrixは複数のNode.jsモジュールに依存して動作している。  
@@ -161,7 +174,12 @@ led-matrixは複数のNode.jsモジュールに依存して動作している。
 `$ rm -rf node_modules/; rm package-lock.json`  
 削除が完了したら、再度`$ sudo npm install`を実行する。  
 easybotics-rpi-rgb-led-matrixがないといわれるので、`$ npm i easybotics-rpi-rgb-led-matrix`でインストールする。  
-インストールが完了したら、`$ node server.js`でバックエンドのスクリプトを実行する。
+インストールが完了したら、`$ node server.js`でバックエンドのスクリプトを実行する。  
+
+4. フロントエンドのビルド  
+フロントエンド機能のスクリプトをビルドする必要がある。  
+`$ cd ~/led-matrix`でled-matrixに移動した後、`$ npm run build`を実行する。  
 
 10. 参考文献  
-Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。
+Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。  
+【本番リリース】Node.jsサーバ接続方法【リバースプロキシ】、タクマ、https://suwaru.tokyo/%E3%80%90%E6%9C%AC%E7%95%AA%E3%83%AA%E3%83%AA%E3%83%BC%E3%82%B9%E3%80%91node-js%E3%82%B5%E3%83%BC%E3%83%90%E6%8E%A5%E7%B6%9A%E6%96%B9%E6%B3%95%E3%80%90%E3%83%AA%E3%83%90%E3%83%BC%E3%82%B9%E3%83%97/
