@@ -109,3 +109,44 @@ Are you sure you want to continue connectingと尋ねられるので、yesと入
 パスワードを尋ねられるので、設定したパスワードを入力する。  
 pi@raspberrypiのプロンプトが出て接続が完了する。  
 以後Raspberry Piの設定はSSHを介して行うのでRaspberry Piからディスプレイやキーボード、マウスは外しても構わない。  
+
+3. led-matrixの環境構築  
+ここからようやくLEDパネルのシステムを構築していく。  
+SSH接続したRaspberry Piのターミナルで作業する。 
+0. aptのアップデート  
+`$ sudo apt update`でaptをアップデートする。  
+1. led-matrixリポジトリのダウンロード  
+GitHubからled-matrixのリポジトリをダウンロードする。  
+ターミナルで`$ cd ~`を実行し、ホームディレクトリに移動した後、`$ git clone https://github.com/xiexxa/led-matrix.git`を実行してホームディレクトリ直下にプロジェクトディレクトリを保存する。  
+2. Node.jsのインストール  
+Raspberry PiのNode.jsをインストールする。  
+`$ sudo apt install -y nodejs npm`を実行し、Node.jsとnpmをインストールする。  
+`$ node -v`を実行し、Node.jsのバージョンを確認する。  
+令和3年2月18日時点では、`v10.23.1`が標準でインストールされる。  
+v10系も使用しているプラグインはサポートされているが、動作保証は出来ないのでv12.18.3を推奨する。  
+Node.jsのバージョンを切り替えるためにNode.jsのバージョン管理ソフト、nをインストールする。  
+`$ sudo npm cache clean`でnpmをキャッシュを削除する。  
+`$ sudo npm install npm n -g`でnをインストールする。  
+`$ sudo n 12.18.3`でv12.18.3のNode.jsをインストールする。  
+このままではsudoしないとnのバージョン変更が適用されないので、`$ vi ~/.bashrc`を実行して、末尾に以下を追記する。  
+```
+export N_PREFIX=$HOME/.n
+export PATH=$N_PREFIX/bin:$PATH
+```
+以上の作業を終えて、Node.jsのバージョンが変更されているか確認する。  
+`$ node -v`を実行して、`v12.18.3`が表示されたらバージョン変更が完了している。  
+`$ cd`を実行して、ホームディレクトリに戻る。  
+3. MySQLのインストール  
+WebアプリケーションにMySQLを使用している。これをインストールする。  
+`$ sudo apt install mariadb-server`  
+3. led-matrixの依存プラグインインストール  
+led-matrixは複数のNode.jsモジュールに依存して動作している。  
+これらの依存関係を解決するために、次のコマンドを実行する。  
+`$ cd led-matrix`を実行して、led-matrixディレクトリに移動する。  
+`$ sudo npm install`で依存モジュールを一括インストールする。  
+この際、chromedriverが32bitOSに対応していない等のエラーが発生する場合は以下のコマンドを実行してエラーを解消する。  
+`$ rm -rf node_modules/; rm package-lock.json`  
+削除が完了したら、再度`$ sudo npm install`を実行する。  
+
+10. 参考文献  
+Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blog1.mammb.com/entry/2019/11/26/090000#n-%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB]。
