@@ -40,3 +40,54 @@ Raspberry Pi ImagerのOperating System以下のCHOOSE OSをクリックすると
 ![](./img/howto/raspberrypi_imager_sdcard.png)  
 ここまで選択が完了したら、WRITEボタンを押して、以下の図XのようにSDカード内のデータが削除される警告に承諾するならば、YESを押してOSを書き込む。  
 ![](./img/howto/raspberrypi_imager_warning.png)  
+SDカードへの書き込みが終わったら、以下の図Xのように終了の旨と、SDカードを取り外してよいメッセージが出るので、CONTINUEを押してSDカードを取り外す。  
+
+4. Raspberry Pi OSのセットアップ  
+Raspberry Piに3で作成したSDカードを装着する。  
+Raspberry PiにディスプレイとUSBマウス、USBキーボード、LANケーブルを接続して、microUSBから電源を取り、起動する。  
+このときまだHATは接続しない。  
+電源投入後最初に以下の図Xのような画面が現れる。
+![](./img/howto/raspberrypiod_top.png)  
+Nextを押して設定を進めていく。  
+Set Countryでは、CountryはJapan、LanguageはJapanese、TimezoneはTokyoを選択し、必要に応じてUse English LanguageやUse US keyboardにチェックを入れる。
+![](./img/howto/setcountry.png)  
+次のChange Passwordでは、デフォルトユーザのpiにパスワードを設定する。  
+デフォルトではraspberryが設定されているが、脆弱なので任意のパスワードを設定する。設定できたらNextを押す。  
+![](./img/howto/changepassword.png)  
+Set Up Screenでは必要に応じてチェックを入れてNextを押す。  
+![](./img/howto/setupscreen.png)  
+Wi-Fiに接続する場合はSelect WiFi Netoworkで接続するSSIDを選択する。  
+![](./img/howto/selectwifinetwork.png)  
+今回はSkipを選択する。  
+Update Softwareではシステムのアップデートを行うのでNextを選択する。  
+![](./img/howto/updatesoftware.png)  
+Setup Completeが出たらGUIでの設定は完了である。  
+Doneを押してウィンドウを閉じる。  
+
+ここからはCUIで設定を進めていく。  ツールバーのターミナルのアイコンをクリックして、ターミナルを開く。  
+1. IPアドレスの固定  
+ローカルIPアドレスを固定する。  
+セットアップの際は接続しているネットワークに合わせて設定されたい。  
+まず、現在のIPアドレスを確認するために`$ ifconfig`を実行する。  
+実行すると以下のような結果が出力される。  
+**ここにifconfig.txtの内容を挿入する**  
+この結果のeth0部分のinet、及びnetmaskの部分を記憶して次の手順に進む。  
+IPアドレスの固定を行うために`/etc/dhcpcd.conf`を編集する。  
+viで編集する場合は次のコマンドで行う。  
+`$ sudo vi /etc/dhcpcd.conf`  
+ここからはviの操作に則って解説していく。  
+ファイルを開いたら、Gを押してファイルの末尾に移動する。  
+oを押して、ファイル末尾に次の内容を記述する。  
+```
+interface eth0
+static ip_address=172.19.210.25/16
+static routers=172.19.1.254
+static domain_name_servers=8.8.8.8
+```
+記述できたらC-cを押して入力モードを解除する。  
+ZZを押して保存してviを終了する。  
+`$ sudo reboot`でRaspberry Piを再起動してネットワークが繋がるか検証する。  
+検証の方法は`$ ping google.com`やWebブラウザで任意のWebサイトにアクセスするなどの方法で行う。  
+IPアドレスが固定できているか確認するために、`$ ifconfig`を実行する。  
+以下のように出力が変わっていたらIPアドレスの固定に成功している。  
+**ここにifconfig_static.txtの内容を挿入する**  
