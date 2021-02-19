@@ -181,7 +181,51 @@ easybotics-rpi-rgb-led-matrixがないといわれるので、`$ npm i easybotic
 フロントエンド機能のスクリプトをビルドする必要がある。  
 `$ cd ~/led-matrix`でled-matrixに移動した後、`$ npm run build`を実行する。  
 
+5. リバースプロキシの設定  
+この状態では3000番ポートでしかWebシステムが利用できないので、リバースプロキシを設定して80番ポートへのアクセスを3000番へ飛ばすようにする。  
+Apacheのリバースプロキシ機能を使うのでApacheをインストールする。  
+`$ sudo apt install apache2`  
+Apacheのプロキシ関係のモジュールを有効にする。  
+```
+$ sudo a2enmod proxy
+$ sudo a2enmod proxy_http
+```
+プロキシの設定をApacheの設定ファイルに追記する。  
+`$ sudo vi /etc/apache2/apache2.conf`  
+以下の内容を末尾に追記する。  
+```
+ProxyRequests Off
+ProxyPass / http://localhost:3000/
+ProxyPassReverse / http://localhost/
+```
+ZZで保存して終了する。  
+`$ sudo service apache2 restart`でApacheを再起動する。  
+再起動後、http://<Raspberry PiのIPアドレス>/にアクセスすると、led-matrixのトップが表示される。
+
 5. 配線  
+ハードウェアの配線の方法について解説する。  
+最終的に、以下の図16のように配線する。  
+![](./img/howto/wiring_view.JPG)  
+はじめから手順を追って解説していく。  
+  1. LEDパネルをフラットケーブルで接続する。  
+  LEDパネルのINとOUTをフラットケーブルで接続する。  
+  2箇所接続して、これを3枚のLEDパネルが数珠つなぎになるように配線する。  
+  端子は切り欠きとツメが対応する向きにして差し込む。  
+  2. LEDパネル用電源ケーブルを接続する。  
+  LEDパネルに4pinコネクタの電源ケーブルを接続する。  
+  ツメがコネクタに付いているので、LEDパネル裏面中央部の4pin端子に接続する。  
+  3枚のパネルでそれぞれ行う。  
+  3. HATにフラットケーブルと電源を接続する。  
+  まずHATに電源を接続する。  
+  HATのOutput 5Vの部分に2で接続した電源ケーブルの一対を+は赤、-は黒のケーブルに対応するように接続する。  
+  接続した図が以下の図Xである。  
+  ![](./img/howto/wiring_view.JPG)  
+  次にフラットケーブルをHATに接続する。HAT中央のHUB75の端子にフラットケーブルを接続し、一対は1で接続したLEDパネルのIN端子に接続する。  
+  4. HATをRaspberry Piに接続する。  
+  Raspberry Piに重ねるように、HATを載せて、Raspberry PiのGPIOピンに接続する。  
+  5. ACアダプタを接続する。  
+  Raspberry PiのmicroUSB端子にUSB ACアダプタの電源を、HATの電源端子にACアダプタの電源を差し込み通電する。  
+  以上で配線は完了する。  
 
 6. 使用方法  
 
@@ -195,3 +239,5 @@ Node のバージョン管理ツール n の使い方、 Naotsugu、[https://blo
 LEDドットマトリクスパネル HUB75規格について調べてみた、onokatio、https://qiita.com/onokatio/items/1b99ae9475b6a9fc2f15。
 
 【Node.js】foreverコマンドの基本的な使い方まとめ, taneyats, https://www.taneyats.com/entry/nodejs-forever.
+
+Apache2.4でリバースプロキシ、tukiyo3、https://qiita.com/tukiyo3/items/d49cec3b63f231202602。
